@@ -44,6 +44,7 @@ questions like the ones below, but feel free to add more information:
     Generate the API Key by entering your email and first name/last name, then submit the form. It is free but comes with 1,000 daily limits.
         - (Updated: 12/13/2023) The TMDB API has legacy rate limits: 40 requests per 10 seconds or 50 requests per 1 second.
         - (Updated: 12/13/2023) Creating the favorite/watch list in the database may be challenging. If a user navigates to a list with 20 or 30 IDs, the website will generate 20 or 30 requests, potentially putting stress on the server.
+            - (Updated: 12/13/2023) Possible Solution is to create own database with movie id and tv series id for favorite/watch list.
 
     - c. Is there any sensitive information you need to secure?
     Hash passwords using the bcrypt package in the backend for added security.
