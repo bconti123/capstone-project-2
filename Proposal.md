@@ -35,6 +35,7 @@ your own API.
 know everything in advance and that these details might change later). Answer
 questions like the ones below, but feel free to add more information:
     - a. What does your database schema look like?
+    ![Database Schema](/DB_Schemas.png)
 
     - b. What kinds of issues might you run into with your API? This is especially
     important if you are creating your own API, web scraping produces
