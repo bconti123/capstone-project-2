@@ -21,12 +21,15 @@ const getDatabaseUri = () => {
 // WJB: Evaluate in 2021 if this should be increased to 13 for non-test use
 const BCRYPT_WORK_FACTOR = process.env.NODE_ENV === "test" ? 1 : 12;
 
+const API_KEY = process.env.API_KEY;
+
 console.log("Streaming Service Config:".green);
 console.log("NODE_ENV:".yellow, process.env.NODE_ENV)
 console.log("SECRET_KEY:".yellow, SECRET_KEY);
 console.log("PORT:".yellow, PORT.toString());
 console.log("BCRYPT_WORK_FACTOR".yellow, BCRYPT_WORK_FACTOR);
 console.log("Database:".yellow, getDatabaseUri());
+console.log("API KEY:".yellow, API_KEY);
 console.log("---");
 
 module.exports = {
@@ -34,4 +37,5 @@ module.exports = {
   PORT,
   BCRYPT_WORK_FACTOR,
   getDatabaseUri,
+  API_KEY
 };
