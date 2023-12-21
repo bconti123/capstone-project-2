@@ -162,5 +162,78 @@ describe("get username", () => {
     } catch (e) {
       expect(e instanceof NotFoundError).toBeTruthy();
     }
-  })
+  });
+});
+
+// update username
+
+describe("update username", () => {
+  test("works", async () => {
+    const Updatedata = {
+      firstName: "updateuser",
+      lastName: "updatetest",
+      email: "new@gmail.com",
+      isAdmin: true,
+    };
+    const user = await User.update("usertest1", Updatedata);
+    expect(user).toEqual({
+      username: "usertest1",
+      ...Updatedata,
+    });
+  });
+  test("works: SET password", async () => {
+    const UpdatePassword = {
+      password: "newPassword",
+    };
+    const user = await User.update("usertest1", UpdatePassword);
+    expect(user).toEqual({
+      username: "usertest1",
+      firstName: "user1",
+      lastName: "test",
+      email: "user1@test.com",
+      isAdmin: false,
+    });
+    const found = await db.query(
+      "SELECT * FROM users WHERE username = 'usertest1'"
+    );
+    expect(found.rows.length).toEqual(1);
+    expect(found.rows[0].password.startsWith("$2b$")).toEqual(true);
+  });
+
+  test("not found if no such user", async () => {
+    try {
+      await User.update("nope", { firstName: "newuser" });
+      fail();
+    } catch (e) {
+      expect(e instanceof NotFoundError).toBeTruthy();
+    }
+  });
+
+  test("bad request if no data", async () => {
+    try {
+      await User.update("u1", {});
+      fail();
+    } catch (e) {
+      expect(e instanceof BadRequestError).toBeTruthy();
+    }
+  });
+});
+
+// Delete username
+describe("delete username", () => {
+  test("works", async () => {
+    await User.remove("usertest1");
+    const res = await db.query(
+      "SELECT * FROM users WHERE username='usertest1'"
+    );
+    expect(res.rows.length).toEqual(0);
+  });
+  test("not found if no such user", async () => {
+    try {
+      await User.remove("nothing");
+      fail();
+    } catch (e) {
+      expect(e instanceof NotFoundError).toBeTruthy();
+    }
+  });
 });

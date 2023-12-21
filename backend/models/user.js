@@ -131,8 +131,8 @@ class User {
       [username]
     );
 
-    user.movie_list = userMovieList.rows.map(m => m.favorite_id);
-    user.tvshow_list = userTVShowList.rows.map(tv => tv.favorite_id);
+    user.movie_list = userMovieList.rows.map((m) => m.favorite_id);
+    user.tvshow_list = userTVShowList.rows.map((tv) => tv.favorite_id);
 
     return user;
   }
@@ -149,19 +149,14 @@ class User {
     });
 
     const usernameVarIdx = "$" + (values.length + 1);
-
-    const querySql =
-      (`
-      UPDATE users
-      SET ${setCols}
-      WHERE username = $1
-      RETURNING username,
-                first_name AS "firstName",
-                last_name AS "lastName,
-                Email AS "email",
-                is_admin AS "isAdmin
-                `,
-      [usernameVarIdx]);
+    const querySql = `UPDATE users
+                      SET ${setCols}
+                      WHERE username = ${usernameVarIdx}
+                      RETURNING username,
+                                first_name AS "firstName",
+                                last_name AS "lastName",
+                                email,
+                                is_admin AS "isAdmin"`;
 
     const result = await db.query(querySql, [...values, username]);
     const user = result.rows[0];
