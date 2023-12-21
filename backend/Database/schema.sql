@@ -1,6 +1,5 @@
 CREATE TABLE users (
-    id INTEGER PRIMARY KEY,
-    username VARCHAR(25),
+    username VARCHAR(25) PRIMARY KEY,
     password TEXT NOT NULL,
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
@@ -40,10 +39,10 @@ CREATE TABLE episodes (
 );
 
 CREATE TABLE watch_list (
-    user_id INTEGER
+    username VARCHAR(25)
         REFERENCES users ON DELETE CASCADE,
     favorite_id INTEGER
         REFERENCES movies ON DELETE CASCADE
         REFERENCES tv_shows ON DELETE CASCADE,
-    PRIMARY KEY (user_id, favorite_id)
+    PRIMARY KEY (username, favorite_id)
 );
