@@ -1,27 +1,28 @@
 const bcrypt = require("bcrypt");
 
-const db = require("../db");
-const { BCRYPT_WORK_FACTOR } = require("../config");
+const db = require("../db.js");
+const { BCRYPT_WORK_FACTOR } = require("../config.js");
 
 const commonBeforeAll = async () => {
-  await db.query(`DELETE FROM users`);
-  await db.query(`DELETE FROM movies`);
-  await db.query(`DELETE FROM tv_shows`);
+  await db.query(`DELETE FROM users RETURNING username`);
+  await db.query(`DELETE FROM movies RETURNING id`);
+  await db.query(`DELETE FROM tv_shows RETURNING id`);
 
   await db.query(
     `
         INSERT INTO users(
-            id, 
             username, 
             password,
             first_name,
             last_name,
             email)
-        VALUES (500, 'usertest1', $1, 'user1', 'test', 'user1@test.com'),
-               (600, 'usertest2', $2, 'user2', 'test', 'user2@test.com')
+        VALUES ('usertest1', $1, 'user1', 'test', 'user1@test.com'),
+               ('usertest2', $2, 'user2', 'test', 'user2@test.com')
                RETURNING username`,
-    [await bcrypt.hash("password1", BCRYPT_WORK_FACTOR)],
-    [await bcrypt.hash("password2", BCRYPT_WORK_FACTOR)]
+    [
+      await bcrypt.hash("password1", BCRYPT_WORK_FACTOR),
+      await bcrypt.hash("password2", BCRYPT_WORK_FACTOR),
+    ]
   );
   await db.query(
     `
@@ -56,7 +57,7 @@ const commonBeforeAll = async () => {
   );
 };
 
-const commonBeforaEach = async () => {
+const commonBeforeEach = async () => {
   await db.query("BEGIN");
 };
 
@@ -70,7 +71,7 @@ const commonAfterAll = async () => {
 
 module.exports = {
   commonBeforeAll,
-  commonBeforaEach,
+  commonBeforeEach,
   commonAfterEach,
   commonAfterAll,
 };

@@ -1,8 +1,8 @@
 "use strict";
 
-const db = require("../db");
+const db = require("../db.js");
 const bcrypt = require("bcrypt");
-const { sqlForPartialUpdate } = require("../helper/sql");
+const { sqlForPartialUpdate } = require("../helper/sql.js");
 const {
   NotFoundError,
   BadRequestError,
@@ -25,7 +25,7 @@ class User {
       [username]
     );
 
-    const user = result.row[0];
+    const user = result.rows[0];
 
     if (user) {
       const isValid = await bcrypt.compare(password, user.password);
@@ -46,18 +46,29 @@ class User {
     email,
     isAdmin,
   }) {
-    const duplicateCheck = await db.query(
+    const duplicateCheckUsername = await db.query(
       `SELECT username
          FROM users
          WHERE username = $1`,
       [username]
     );
 
-    if (duplicateCheck.rows[0]) {
+    const duplicateCheckEmail = await db.query(
+      `SELECT email
+       FROM users
+       WHERE email = $1`,
+      [email]
+    );
+
+    if (duplicateCheckUsername.rows[0]) {
       throw new BadRequestError(`Duplicate username: ${username}`);
     }
 
-    const hashedPassword = bcrypt.hash(password, BCRYPT_WORK_FACTOR);
+    if (duplicateCheckEmail.rows[0]) {
+      throw new BadRequestError(`Duplicate email: ${email}`);
+    }
+
+    const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
 
     const result = await db.query(
       `INSERT INTO users
@@ -67,7 +78,8 @@ class User {
          last_name,
          Email,
          is_admin)
-         VALUES ($1, $2, $3, $4, $5, $6)`,
+         VALUES ($1, $2, $3, $4, $5, $6)
+         RETURNING username, first_name AS "firstName", last_name AS "lastName", email, is_admin AS "isAdmin"`,
       [username, hashedPassword, firstName, lastName, email, isAdmin]
     );
 
@@ -77,15 +89,16 @@ class User {
   }
 
   static async findAll() {
-    const result = db.query(
+    const result = await db.query(
       `SELECT username,
-        first_name AS "firstName",
-        last_name AS "lastName",
-        Email AS "email"
-        is_admin AS "isAdmin"
-        FROM users
-        ORDER BY username`
+              first_name AS "firstName",
+              last_name AS "lastName",
+              email,
+              is_admin AS "isAdmin"
+       FROM users
+       ORDER BY username`
     );
+
     return result.rows;
   }
 
@@ -106,20 +119,20 @@ class User {
 
     const userMovieList = await db.query(
       `SELECT m.favorite_id
-       FROM watch_list
-       WHERE m.user_id = $1`,
-      [user.id]
+       FROM watch_list AS m
+       WHERE m.username = $1`,
+      [username]
     );
 
     const userTVShowList = await db.query(
       `SELECT tv.favorite_id
-       FROM watch_list
-       WHERE tv.user_id = $1`,
-      [user.id]
+       FROM watch_list AS tv
+       WHERE tv.username = $1`,
+      [username]
     );
 
-    user.movie_list = userMovieList.map((m) => m.favorite_id);
-    user.tvshow_list = userTVShowList.map((tv) => tv.favorite_id);
+    user.movie_list = userMovieList.rows.map(m => m.favorite_id);
+    user.tvshow_list = userTVShowList.rows.map(tv => tv.favorite_id);
 
     return user;
   }
@@ -171,3 +184,5 @@ class User {
     if (!user) throw new NotFoundError(`no user found: ${username}`);
   }
 }
+
+module.exports = User;
