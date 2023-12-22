@@ -18,7 +18,7 @@ describe("sqlForPartialUpdate", () => {
       { key2: "otherkey" }
     );
     expect(result).toEqual({
-      setCols: '"key1"=$1 "otherkey"=$2',
+      setCols: '"key1"=$1,"otherkey"=$2',
       values: ["value1", "value2"],
     });
   });
