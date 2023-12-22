@@ -15,7 +15,7 @@ CREATE TABLE movies (
     overview TEXT,
     release_date TEXT,
     poster_path TEXT,
-    genres TEXT
+    genres_id INTEGER []
 );
 
 CREATE TABLE tv_shows (
@@ -24,7 +24,7 @@ CREATE TABLE tv_shows (
     overview TEXT,
     first_air_date TEXT,
     poster_path TEXT,
-    genres TEXT
+    genres_id INTEGER []
 );
 
 CREATE TABLE episodes (
