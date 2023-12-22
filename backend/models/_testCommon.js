@@ -32,12 +32,12 @@ const commonBeforeAll = async () => {
             overview,
             release_date,
             poster_path,
-            genres
+            genres_id
         )
-        VALUES (500, 'movie1', 'overview1', 'November 20, 2020', 'http://image1.com', 'action'),
-               (600, 'movie2', 'overview2', 'November 25, 2020', 'http://image2.com', 'action'),
-               (700, 'movie3', 'overview3', 'November 01, 2020', 'http://image3.com', 'action'),
-               (800, 'movie4', 'overview4', 'November 21, 2020', 'http://image4.com', 'action')`
+        VALUES (500, 'movie1', 'overview1', 'November 20, 2020', 'http://image1.com', ARRAY[1,2,3]),
+               (600, 'movie2', 'overview2', 'November 25, 2020', 'http://image2.com', ARRAY[1,2,3]),
+               (700, 'movie3', 'overview3', 'November 01, 2020', 'http://image3.com', ARRAY[1,2,3]),
+               (800, 'movie4', 'overview4', 'November 21, 2020', 'http://image4.com', ARRAY[1,2,3])`
   );
 
   await db.query(
@@ -48,12 +48,12 @@ const commonBeforeAll = async () => {
             overview,
             first_air_date,
             poster_path,
-            genres
+            genres_id
         )
-        VALUES (501, 'tvshow1', 'overview1', 'November 20, 2020', 'http://image1.com', 'action'),
-               (601, 'tvshow2', 'overview2', 'November 25, 2020', 'http://image2.com', 'action'),
-               (701, 'tvshow3', 'overview3', 'November 01, 2020', 'http://image3.com', 'action'),
-               (801, 'tvshow4', 'overview4', 'November 21, 2020', 'http://image4.com', 'action')`
+        VALUES (501, 'tvshow1', 'overview1', 'November 20, 2020', 'http://image1.com', ARRAY[1,2,3]),
+               (601, 'tvshow2', 'overview2', 'November 25, 2020', 'http://image2.com', ARRAY[1,2,3]),
+               (701, 'tvshow3', 'overview3', 'November 01, 2020', 'http://image3.com', ARRAY[1,2,3]),
+               (801, 'tvshow4', 'overview4', 'November 21, 2020', 'http://image4.com', ARRAY[1,2,3])`
   );
 };
 

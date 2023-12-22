@@ -12,15 +12,28 @@ const { BCRYPT_WORK_FACTOR } = require("../config");
 
 class Movie {
   // Add
-  static async add({ id, title, overview, release_date, poster_path, genres }) {
+  static async add({
+    id,
+    title,
+    overview,
+    release_date,
+    poster_path,
+    genres_id,
+  }) {
     const duplicateCheck = await db.query(
       `SELECT id, title
              FROM movies
              WHERE id = $1`,
-      [data.id]
+      [id]
     );
-    if (duplicateCheck.rows[0]) {
-      throw new BadRequestError(`Duplicate title: ${data.title} ${data.id}`);
+    const duplicateCheckTitle = await db.query(
+      `SELECT id, title
+             FROM movies
+             WHERE title = $1`,
+      [title]
+    );
+    if (duplicateCheck.rows[0] || duplicateCheckTitle.rows[0]) {
+      throw new BadRequestError(`Duplicate title: ${title} ${id}`);
     }
 
     const result = await db.query(
@@ -30,11 +43,11 @@ class Movie {
             overview,
             release_date,
             poster_path,
-            genres
+            genres_id
         )
          VALUES ($1, $2, $3, $4, $5, $6)
-         RETURNING id, title, overview, release_date, poster_path, genres`,
-      [id, title, overview, release_date, poster_path, genres]
+         RETURNING id, title, overview, release_date, poster_path, genres_id`,
+      [id, title, overview, release_date, poster_path, genres_id]
     );
 
     const movie = result.rows[0];
@@ -50,7 +63,7 @@ class Movie {
               overview, 
               release_date, 
               poster_path, 
-              genres 
+              genres_id 
         FROM movies
         ORDER BY title`
     );
@@ -58,21 +71,21 @@ class Movie {
     return result.rows;
   }
   // GET
-  static async get(id) {
+  static async get(data) {
     const result = await db.query(
       `SELECT id, 
               title, 
               overview, 
               release_date, 
               poster_path, 
-              genres 
-       FROM movies
-       WHERE id=$1`,
-      [id]
+              genres_id 
+        FROM movies
+        WHERE id = $1`,
+      [data]
     );
     const movie = result.rows[0];
 
-    if (!movie) throw NotFoundError(`no movie found: ${movie.title} ${id}`);
+    if (!movie) throw new NotFoundError(`no movie found: ${data}`);
     return movie;
   }
   // UPDATE
@@ -82,7 +95,7 @@ class Movie {
       overview: "overview",
       release_date: "release_date",
       poster_path: "poster_path",
-      genres: "genres",
+      genres_id: "genres_id",
     });
     const movieVarIdx = "$" + (values.length + 1);
     const querySql = `UPDATE movies
@@ -93,15 +106,27 @@ class Movie {
                                 overview,
                                 release_date,
                                 poster_path,
-                                genres`;
+                                genres_id`;
 
     const result = await db.query(querySql, [...values, id]);
     const movie = result.rows[0];
 
-    if (!movie) throw new NotFoundError(`No movie found: ${movie.title} ${id}`);
+    if (!movie) throw new NotFoundError(`No movie found: ${id}`);
     return movie;
   }
   // DELETE
+  static async remove(id) {
+    let result = await db.query(
+      `DELETE
+       FROM movies
+       WHERE id = $1
+       RETURNING title`,
+      [id]
+    );
+
+    const movie = result.rows[0];
+    if (!movie) throw new NotFoundError(`no movie found: ${id}`);
+  }
 }
 
 module.exports = Movie;
