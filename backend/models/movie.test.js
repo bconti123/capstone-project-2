@@ -3,7 +3,6 @@
 const {
   NotFoundError,
   BadRequestError,
-  UnauthorizedError,
 } = require("../expressError");
 
 const Movie = require("./movie.js");

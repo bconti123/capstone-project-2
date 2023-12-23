@@ -5,10 +5,7 @@ const { sqlForPartialUpdate } = require("../helper/sql.js");
 const {
   NotFoundError,
   BadRequestError,
-  UnauthorizedError,
 } = require("../expressError");
-
-const { BCRYPT_WORK_FACTOR } = require("../config");
 
 class Movie {
   // Add

@@ -51,9 +51,7 @@ const commonBeforeAll = async () => {
             genres_id
         )
         VALUES (501, 'tvshow1', 'overview1', 'November 20, 2020', 'http://image1.com', ARRAY[1,2,3]),
-               (601, 'tvshow2', 'overview2', 'November 25, 2020', 'http://image2.com', ARRAY[1,2,3]),
-               (701, 'tvshow3', 'overview3', 'November 01, 2020', 'http://image3.com', ARRAY[1,2,3]),
-               (801, 'tvshow4', 'overview4', 'November 21, 2020', 'http://image4.com', ARRAY[1,2,3])`
+               (601, 'tvshow2', 'overview2', 'November 25, 2020', 'http://image2.com', ARRAY[1,2,3])`
   );
 };
 
