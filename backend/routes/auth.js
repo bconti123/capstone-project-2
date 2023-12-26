@@ -33,13 +33,13 @@ router.post("/token", async (req, res, next) => {
 // POST /auth/register
 router.post("/register", async (req, res, next) => {
     try {
-        const validator = jsonschemas.validate( ...req.body, userRegisterSchema);
+        const validator = jsonschemas.validate(req.body, userRegisterSchema);
         if (!validator.valid) {
             const errs = validator.errors.map(e => e.stack);
             throw new BadRequestError(errs);
         }
         const newUser = await User.register({ ...req.body, isAdmin: false });
-        const token = createToken({ token });
+        const token = createToken(newUser);
         return res.status(201).json({ token });
     } catch (e) {
         return next(e);

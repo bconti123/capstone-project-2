@@ -27,4 +27,62 @@ describe("POST /auth/token", () => {
       token: expect.any(String),
     });
   });
+
+  test("unauth with wrong password", async () => {
+    const resp = await request(app).post("/auth/token").send({
+      username: "u1",
+      password: "wrongpassword",
+    });
+    expect(resp.statusCode).toEqual(401);
+  });
+
+  test("bad request with missing data", async () => {
+    const resp = await request(app).post("/auth/token").send({
+      username: "u1",
+    });
+    expect(resp.statusCode).toEqual(400);
+  });
+
+  test("bad request with invalid data", async () => {
+    const resp = await request(app).post("/auth/token").send({
+      username: 123,
+      password: "a number",
+    });
+    expect(resp.statusCode).toEqual(400);
+  });
+});
+
+// POST /auth/register
+
+describe("POST /auth/register", () => {
+  test("works", async () => {
+    const resp = await request(app).post("/auth/register").send({
+      username: "new",
+      password: "newpassword",
+      firstName: "first",
+      lastName: "last",
+      email: "newemail@gmail.com",
+    });
+    expect(resp.statusCode).toEqual(201);
+  });
+
+  test("bad request with missing data", async () => {
+    const resp = await request(app).post("/auth/register").send({
+      username: "new",
+      password: "newpassword",
+    });
+    expect(resp.statusCode).toEqual(400);
+  });
+
+  test("bad request with invalid data", async () => {
+    const resp = await request(app).post("/auth/register").send({
+      username: "new",
+      password: "newpassword",
+      firstName: "first",
+      lastName: "last",
+      email: "not-a-email",
+    });
+    expect(resp.statusCode).toEqual(400);
+  });
+
 });
