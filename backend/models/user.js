@@ -178,6 +178,9 @@ class User {
 
     if (!user) throw new NotFoundError(`no user found: ${username}`);
   }
+
+  // add movie to user's favorite list
+  // add tv show to user's favorite list
 }
 
 module.exports = User;
