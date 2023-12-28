@@ -9,6 +9,14 @@ const router = express.Router();
 
 // GET /
 
+// GET /popular
+
+// GET /now_playing
+
+// GET /top_rated
+
+// GET /upcoming
+
 // GET /[tvshow_id]
 
 // POST /
