@@ -12,26 +12,27 @@ class moviedbAPI {
     try {
       return await axios({ url, method, headers });
     } catch (e) {
-      console.error("API Error: ", e.response);
-      let message = e.response.data.error.message;
+      console.error("API Error: ", e.response.data);
+      let message = e.response.data.status_message;
       throw Array.isArray(message) ? message : [message];
     }
   }
-
-  static async movieNowPlaying(page=1) {
+  // type = now_playing, popular, upcoming, or top_rated
+  static async movieList(type, page=1) {
     try {
-      return await this.APIrequest(`movie/now_playing?page=${page}`);
+      return await this.APIrequest(`movie/${type}?page=${page}&language=en`);
     } catch (e) {
       console.error("Error fetching now playing movies: ", e);
-      throw error;
+      throw e;
     }
   }
-  static async moviePopular(page=1) {
+
+  static async tvList(type, page=1) {
     try {
-      return await this.APIrequest(`movie/popular?page=${page}`);
+      return await this.APIrequest(`tv/${type}?page${page}&language=en`)
     } catch (e) {
       console.error("Error fetching now playing movies: ", e);
-      throw error;
+      throw e;
     }
   }
 }
