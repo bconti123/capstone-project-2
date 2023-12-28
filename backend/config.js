@@ -22,6 +22,7 @@ const getDatabaseUri = () => {
 const BCRYPT_WORK_FACTOR = process.env.NODE_ENV === "test" ? 1 : 12;
 
 const API_KEY = process.env.API_KEY;
+const API_TOKEN = process.env.API_TOKEN;
 
 console.log("Streaming Service Config:".green);
 console.log("NODE_ENV:".yellow, process.env.NODE_ENV)
@@ -37,5 +38,6 @@ module.exports = {
   PORT,
   BCRYPT_WORK_FACTOR,
   getDatabaseUri,
-  API_KEY
+  API_KEY,
+  API_TOKEN
 };
