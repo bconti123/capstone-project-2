@@ -9,6 +9,8 @@ const {
   commonBeforeEach,
   commonAfterEach,
   commonAfterAll,
+  u1Token,
+  u2Token,
 } = require("./_testCommon.js");
 
 beforeAll(commonBeforeAll);
@@ -17,6 +19,30 @@ afterEach(commonAfterEach);
 afterAll(commonAfterAll);
 
 // POST /
+
+describe("POST /users", () => {
+  test("works", async () => {
+    const resp = await request(app).post("/users").send({
+      username: "u-new",
+      password: "u-password",
+      firstName: "u-first",
+      lastName: "u-last",
+      email: "u-email@gmail.com",
+      isAdmin: false,
+    });
+    expect(resp.statusCode).toEqual(201);
+    expect(resp.body).toEqual({
+      user: {
+        username: "u-new",
+        firstName: "u-first",
+        lastName: "u-last",
+        email: "u-email@gmail.com",
+        isAdmin: false,
+      },
+      token: expect.any(String),
+    });
+  });
+});
 
 // GET /
 

@@ -92,3 +92,6 @@ router.delete("/:username", async (req, res, next) => {
 // POST /[username]/tvshows/[tvshow_id] - Required Current User
 
 // DELETE /[username]/tvshows/[tvshow_id] - Required Current User
+
+
+module.exports = router;

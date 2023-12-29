@@ -8,13 +8,15 @@ const { NotFoundError } = require("./expressError");
 
 // Routes
 const authRoutes = require("./routes/auth.js");
+const userRoutes = require("./routes/user.js");
 
-// app express setup 
+// app express setup
 const app = express();
-app.use(express.json())
+app.use(express.json());
 
 // app.use Routes
-app.use('/auth', authRoutes);
+app.use("/auth", authRoutes);
+app.use("/users", userRoutes);
 
 /** Handle 404 errors -- this matches everything */
 app.use((req, res, next) => {
