@@ -38,11 +38,14 @@ CREATE TABLE episodes (
     tv_show_id INTEGER REFERENCES tv_shows ON DELETE CASCADE
 );
 
-CREATE TABLE watch_list (
-    username VARCHAR(25)
-        REFERENCES users ON DELETE CASCADE,
-    favorite_id INTEGER
-        REFERENCES movies ON DELETE CASCADE
-        REFERENCES tv_shows ON DELETE CASCADE,
-    PRIMARY KEY (username, favorite_id)
+CREATE TABLE movie_list (
+    username VARCHAR(25) REFERENCES users(username) ON DELETE CASCADE,
+    movie_id INTEGER REFERENCES movies(id) ON DELETE CASCADE,
+    PRIMARY KEY (username, movie_id)
+);
+
+CREATE TABLE tv_list (
+    username VARCHAR(25) REFERENCES users(username) ON DELETE CASCADE,
+    tvshow_id INTEGER REFERENCES tv_shows(id) ON DELETE CASCADE,
+    PRIMARY KEY (username, tvshow_id)
 );

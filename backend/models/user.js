@@ -118,16 +118,16 @@ class User {
     if (!user) throw new NotFoundError(`no user found: ${username}`);
 
     const userMovieList = await db.query(
-      `SELECT m.favorite_id
-       FROM watch_list AS m
-       WHERE m.username = $1`,
+      `SELECT movie_id
+       FROM movie_list
+       WHERE username = $1`,
       [username]
     );
 
     const userTVShowList = await db.query(
-      `SELECT tv.favorite_id
-       FROM watch_list AS tv
-       WHERE tv.username = $1`,
+      `SELECT tvshow_id
+       FROM tv_list
+       WHERE username = $1`,
       [username]
     );
 
@@ -180,7 +180,84 @@ class User {
   }
 
   // add movie to user's favorite list
+  static async add_movie(username, movie_id) {
+    const preCheck = await db.query(
+      `SELECT id
+       FROM movies
+       WHERE id = $1`,
+      [movie_id]
+    );
+    const movie = preCheck.rows[0];
+
+    if (!movie) throw new NotFoundError(`No movie found: ${movie_id}`);
+
+    await db.query(
+      `INSERT INTO movie_list (username, movie_id)
+       VALUES ($1, $2)
+       RETURNING username`,
+      [username, movie_id]
+    );
+  }
+  // remove movie from user's favorite_list
+  static async remove_movie(username, movie_id) {
+    const preCheck = await db.query(
+      `SELECT username, movie_id
+       FROM movie_list
+       WHERE username = $1
+       AND movie_id = $2`,
+      [username, movie_id]
+    );
+    const movie = preCheck.rows[0];
+
+    if (!movie) throw new NotFoundError(`No movie found: ${movie_id}`);
+
+    await db.query(
+      `DELETE
+       FROM movie_list
+       WHERE username = $1
+       AND movie_id = $2`,
+      [username, movie_id]
+    );
+  }
   // add tv show to user's favorite list
+  static async add_tv(username, tvshow_id) {
+    const preCheck = await db.query(
+      `SELECT id
+       FROM tv_shows
+       WHERE id = $1`,
+      [tvshow_id]
+    );
+    const tv = preCheck.rows[0];
+
+    if (!tv) throw new NotFoundError(`No tv show found: ${tvshow_id}`);
+    await db.query(
+      `INSERT INTO tv_list (username, tvshow_id)
+       VALUES ($1, $2)
+       RETURNING username`,
+      [username, tvshow_id]
+    );
+  }
+  // remove tv show from user's favorite list
+  static async remove_tv(username, tvshow_id) {
+    const preCheck = await db.query(
+      `SELECT username, tvshow_id
+       FROM tv_list
+       WHERE username = $1
+       AND tvshow_id = $2`,
+      [username, tvshow_id]
+    );
+    const tv = preCheck.rows[0];
+
+    if (!tv) throw new NotFoundError(`No movie found: ${tvshow_id}`);
+
+    await db.query(
+      `DELETE
+       FROM tv_list
+       WHERE username = $1
+       AND tvshow_id = $2`,
+      [username, tvshow_id]
+    );
+  }
 }
 
 module.exports = User;

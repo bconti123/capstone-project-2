@@ -237,3 +237,54 @@ describe("delete username", () => {
     }
   });
 });
+
+// Add movie to user's list
+describe("Add movie to user's list", () => {
+  test("works", async () => {
+    await User.add_movie("usertest1", 500);
+    const res = await db.query(
+      `SELECT * FROM movie_list WHERE username='usertest1'`
+    );
+    expect(res.rows.length).toEqual(1);
+  });
+});
+// Delete movie from user's list
+describe("Delete movie from user's list", () => {
+  test("works", async () => {
+    await User.add_movie("usertest1", 500);
+    const res = await db.query(
+      `SELECT * FROM movie_list WHERE username='usertest1'`
+    );
+    expect(res.rows.length).toEqual(1);
+    await User.remove_movie("usertest1", 500);
+    const delres = await db.query(
+      `SELECT * FROM movie_list WHERE username='usertest1'`
+    );
+    expect(delres.rows.length).toEqual(0);
+  });
+});
+// Add tv show to user's list
+describe("Add tv show to user's list", () => {
+  test("works", async () => {
+    await User.add_tv("usertest1", 501);
+    const res = await db.query(
+      `SELECT * FROM tv_list WHERE username='usertest1'`
+    );
+    expect(res.rows.length).toEqual(1);
+  });
+});
+// Delete tv show from user's list
+describe("Delete tv show from user's list", () => {
+  test("works", async () => {
+    await User.add_tv("usertest1", 501);
+    const res = await db.query(
+      `SELECT * FROM tv_list WHERE username='usertest1'`
+    );
+    expect(res.rows.length).toEqual(1);
+    await User.remove_tv("usertest1", 501);
+    const delres = await db.query(
+      `SELECT * FROM tv_list WHERE username='usertest1'`
+    );
+    expect(delres.rows.length).toEqual(0);
+  });
+});
