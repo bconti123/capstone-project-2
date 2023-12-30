@@ -103,6 +103,9 @@ const commonBeforeAll = async () => {
       genres_id: [1, 2, 3],
     })
   ).id;
+
+  await User.add_movie("u1", testMovieids[0]);
+  await User.add_tv("u1", testTVids[0]);
 };
 
 const commonBeforeEach = async () => {

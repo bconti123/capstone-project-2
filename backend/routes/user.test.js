@@ -99,7 +99,23 @@ describe("GET /users", () => {
   // Work on auth later
 });
 // GET /[username]
-describe("GET /:username", () => {});
+describe("GET /:username", () => {
+  test("works", async () => {
+    const resp = await request(app).get("/users/u1");
+    expect(resp.statusCode).toEqual(200);
+    expect(resp.body).toEqual({
+      user: {
+        username: "u1",
+        firstName: "u1F",
+        lastName: "u1L",
+        email: "u1@gmail.com",
+        isAdmin: false,
+        movie_list: [1],
+        tvshow_list: [1],
+      },
+    });
+  });
+});
 
 // PATCH /[username]
 
