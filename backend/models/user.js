@@ -131,8 +131,8 @@ class User {
       [username]
     );
 
-    user.movie_list = userMovieList.rows.map((m) => m.favorite_id);
-    user.tvshow_list = userTVShowList.rows.map((tv) => tv.favorite_id);
+    user.movie_list = userMovieList.rows.map((m) => m.movie_id);
+    user.tvshow_list = userTVShowList.rows.map((tv) => tv.tvshow_id);
 
     return user;
   }
