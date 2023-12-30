@@ -1,8 +1,7 @@
-const fetch = require("node-fetch");
 const axios = require("axios");
 
 const { API_TOKEN } = require("../config");
-const BASE_URL = `https://api.themoviedb.org/3`;
+const BASE_URL = `https://api.themoviedb.org/4`;
 
 class moviedbAPI {
   static async APIrequest(endpoint) {
@@ -13,7 +12,7 @@ class moviedbAPI {
       return await axios({ url, method, headers });
     } catch (e) {
       console.error("API Error: ", e.response.data);
-      let message = e.response.data.status_message;
+      let message = e.response.data;
       throw Array.isArray(message) ? message : [message];
     }
   }
@@ -31,7 +30,7 @@ class moviedbAPI {
     try {
       return await this.APIrequest(`tv/${type}?page${page}&language=en`)
     } catch (e) {
-      console.error("Error fetching now playing movies: ", e);
+      console.error("Error fetching now playing tv series: ", e);
       throw e;
     }
   }

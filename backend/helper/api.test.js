@@ -13,9 +13,9 @@ describe("now playing movie", () => {
       const movie = await moviedbAPI.movieList("now_playing");
       expect(movie.data.results.length).toEqual(20);
       expect(movie.status).toEqual(200);
-    } catch (error) {
+    } catch (e) {
       // Handle the error if needed
-      console.error("Test error: ", error);
+      console.error("Test error: ", e);
     }
   });
 });
@@ -26,8 +26,8 @@ describe("popular movie", () => {
       const movie = await moviedbAPI.movieList("popular");
       expect(movie.data.results.length).toEqual(20);
       expect(movie.status).toEqual(200);
-    } catch (error) {
-      console.error("Test error: ", error);
+    } catch (e) {
+      console.error("Test error: ", e);
     }
   });
 });
@@ -38,8 +38,8 @@ describe("top rated movie", () => {
       const movie = await moviedbAPI.movieList("top_rated");
       expect(movie.data.results.length).toEqual(20);
       expect(movie.status).toEqual(200);
-    } catch (error) {
-      console.error("Test error: ", error);
+    } catch (e) {
+      console.error("Test error: ", e);
     }
   });
 });
@@ -50,8 +50,8 @@ describe("upcoming movie", () => {
       const movie = await moviedbAPI.movieList("upcoming");
       expect(movie.data.results.length).toEqual(20);
       expect(movie.status).toEqual(200);
-    } catch (error) {
-      console.error("Test error: ", error);
+    } catch (e) {
+      console.error("Test error: ", e);
     }
   });
 });
@@ -62,9 +62,9 @@ describe("now playing tv", () => {
       const movie = await moviedbAPI.tvList("now_playing");
       expect(movie.data.results.length).toEqual(20);
       expect(movie.status).toEqual(200);
-    } catch (error) {
+    } catch (e) {
       // Handle the error if needed
-      console.error("Test error: ", error);
+      console.error("Test error: ", e);
     }
   });
 });
@@ -75,8 +75,8 @@ describe("popular tv", () => {
       const movie = await moviedbAPI.tvList("popular");
       expect(movie.data.results.length).toEqual(20);
       expect(movie.status).toEqual(200);
-    } catch (error) {
-      console.error("Test error: ", error);
+    } catch (e) {
+      console.error("Test error: ", e);
     }
   });
 });
@@ -87,9 +87,9 @@ describe("top_rated tv", () => {
       const movie = await moviedbAPI.tvList("top_rated");
       expect(movie.data.results.length).toEqual(20);
       expect(movie.status).toEqual(200);
-    } catch (error) {
+    } catch (e) {
       // Handle the error if needed
-      console.error("Test error: ", error);
+      console.error("Test error: ", e);
     }
   });
 });
@@ -100,8 +100,8 @@ describe("upcoming tv", () => {
       const movie = await moviedbAPI.tvList("upcoming");
       expect(movie.data.results.length).toEqual(20);
       expect(movie.status).toEqual(200);
-    } catch (error) {
-      console.error("Test error: ", error);
+    } catch (e) {
+      console.error("Test error: ", e);
     }
   });
 });
