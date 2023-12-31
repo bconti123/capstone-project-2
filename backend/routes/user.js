@@ -16,12 +16,16 @@ const jsonschema = require("jsonschema");
 const userNewSchema = require("../schemas/userNew.json");
 const userUpdateSchema = require("../schemas/userUpdate.json");
 
-// Middleware for Admin or Current User setup (Not done yet)
+// Middleware for Admin or Current User setup
+const {
+  ensureAdmin,
+  ensureCorrectUserOrAdmin,
+} = require("../middleware/auth.js");
 
 const router = express.Router();
 
 // POST / - Required Admin
-router.post("/", async (req, res, next) => {
+router.post("/", ensureAdmin, async (req, res, next) => {
   try {
     const validator = jsonschema.validate(req.body, userNewSchema);
     if (!validator.valid) {
@@ -38,7 +42,7 @@ router.post("/", async (req, res, next) => {
 });
 
 // GET / - Required Admin
-router.get("/", async (req, res, next) => {
+router.get("/", ensureAdmin, async (req, res, next) => {
   try {
     const users = await User.findAll();
     return res.json({ users });
@@ -48,7 +52,7 @@ router.get("/", async (req, res, next) => {
 });
 
 // GET /[username] - Required Current User or Admin
-router.get("/:username", async (req, res, next) => {
+router.get("/:username", ensureCorrectUserOrAdmin, async (req, res, next) => {
   try {
     const user = await User.get(req.params.username);
     return res.json({ user });
@@ -58,7 +62,7 @@ router.get("/:username", async (req, res, next) => {
 });
 
 // PATCH /[username] - Required Current User or Admin
-router.patch("/:username", async (req, res, next) => {
+router.patch("/:username", ensureCorrectUserOrAdmin, async (req, res, next) => {
   try {
     const validator = jsonschema.validate(req.body, userUpdateSchema);
     if (!validator.valid) {
@@ -73,14 +77,18 @@ router.patch("/:username", async (req, res, next) => {
 });
 
 // DELETE /[username] - Required Current User or Admin
-router.delete("/:username", async (req, res, next) => {
-  try {
-    await User.delete(req.params.username);
-    return res.json({ deleted: req.params.username });
-  } catch (e) {
-    return next(e);
+router.delete(
+  "/:username",
+  ensureCorrectUserOrAdmin,
+  async (req, res, next) => {
+    try {
+      await User.delete(req.params.username);
+      return res.json({ deleted: req.params.username });
+    } catch (e) {
+      return next(e);
+    }
   }
-});
+);
 
 // Note: You need to make function in /models/user.js first
 // READ ABOVE BEFORE YOU DO THIS BELOW!
@@ -92,6 +100,5 @@ router.delete("/:username", async (req, res, next) => {
 // POST /[username]/tvshows/[tvshow_id] - Required Current User
 
 // DELETE /[username]/tvshows/[tvshow_id] - Required Current User
-
 
 module.exports = router;
