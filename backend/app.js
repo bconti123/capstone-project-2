@@ -3,9 +3,8 @@
 /** Express app for streaming service. */
 
 const express = require("express");
-
 const { NotFoundError } = require("./expressError");
-
+const { authenticateJWT } = require("./middleware/auth.js");
 // Routes
 const authRoutes = require("./routes/auth.js");
 const userRoutes = require("./routes/user.js");
@@ -13,6 +12,9 @@ const userRoutes = require("./routes/user.js");
 // app express setup
 const app = express();
 app.use(express.json());
+
+// middleware
+app.use(authenticateJWT);
 
 // app.use Routes
 app.use("/auth", authRoutes);
