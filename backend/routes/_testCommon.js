@@ -44,7 +44,6 @@ const commonBeforeAll = async () => {
     isAdmin: false,
   });
 
-  // DO THIS LATER
   testMovieids[0] = (
     await Movie.add({
       id: 1,
@@ -133,5 +132,5 @@ module.exports = {
   u2Token,
   testMovieids,
   testTVids,
-  adminToken
+  adminToken,
 };

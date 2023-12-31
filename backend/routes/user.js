@@ -94,11 +94,57 @@ router.delete(
 // READ ABOVE BEFORE YOU DO THIS BELOW!
 
 // POST /[username]/movies/[movie_id] - Required Admin or Current User
+router.post(
+  "/:username/movies/:movie_id",
+  ensureCorrectUserOrAdmin,
+  async (req, res, next) => {
+    try {
+      await User.add_movie(req.params.username, req.params.movie_id);
+      return res.json({ added: req.params.movie_id });
+    } catch (e) {
+      return next(e);
+    }
+  }
+);
 
 // DELETE /[username]/movies/[movie_id] - Required Admin or Current User
-
+router.delete(
+  "/:username/movies/:movie_id",
+  ensureCorrectUserOrAdmin,
+  async (req, res, next) => {
+    try {
+      await User.remove_movie(req.params.username, req.params.movie_id);
+      return res.json({ deleted: req.params.movie_id });
+    } catch (e) {
+      return next(e);
+    }
+  }
+);
 // POST /[username]/tvshows/[tvshow_id] - Required Admin or Current User
-
+router.post(
+  "/:username/tvshows/:tvshow_id",
+  ensureCorrectUserOrAdmin,
+  async (req, res, next) => {
+    try {
+      await User.add_tv(req.params.username, req.params.tvshow_id);
+      return res.json({ added: req.params.tvshow_id });
+    } catch (e) {
+      return next(e);
+    }
+  }
+);
 // DELETE /[username]/tvshows/[tvshow_id] - Required Admin or Current User
+router.delete(
+  "/:username/tvshows/:tvshow_id",
+  ensureCorrectUserOrAdmin,
+  async (req, res, next) => {
+    try {
+      await User.remove_tv(req.params.username, req.params.tvshow_id);
+      return res.json({ deleted: req.params.tvshow_id });
+    } catch (e) {
+      return next(e);
+    }
+  }
+);
 
 module.exports = router;

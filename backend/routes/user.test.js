@@ -370,9 +370,151 @@ describe("DELETE /:username", () => {
 });
 
 // POST /[username]/movies/[movie_id]
+describe("POST /:username/movies/:movie_id", () => {
+  test("works for admin", async () => {
+    const resp = await request(app)
+      .post("/users/u1/movies/2")
+      .set("authorization", `Bearer ${adminToken}`);
 
+    expect(resp.body).toEqual({ added: "2" });
+  });
+  test("works for correct user", async () => {
+    const resp = await request(app)
+      .post("/users/u1/movies/2")
+      .set("authorization", `Bearer ${u1Token}`);
+
+    expect(resp.body).toEqual({ added: "2" });
+  });
+  test("unauth for other users", async () => {
+    const resp = await request(app)
+      .post("/users/u1/movies/2")
+      .set("authorization", `Bearer ${u2Token}`);
+
+    expect(resp.statusCode).toEqual(401);
+  });
+  test("unauth for anon", async () => {
+    const resp = await request(app).post("/users/u1/movies/2");
+
+    expect(resp.statusCode).toEqual(401);
+  });
+
+  test("movie is not found", async () => {
+    const resp = await request(app)
+      .post("/users/u1/movies/0")
+      .set("authorization", `Bearer ${adminToken}`);
+
+    expect(resp.statusCode).toEqual(404);
+  });
+});
 // DELETE /[username]/movies/[movie_id]
+describe("DELETE /:username/movies/:movie_id", () => {
+  test("works for admin", async () => {
+    const resp = await request(app)
+      .delete("/users/u1/movies/1")
+      .set("authorization", `Bearer ${adminToken}`);
+
+    expect(resp.body).toEqual({ deleted: "1" });
+  });
+  test("works for correct user", async () => {
+    const resp = await request(app)
+      .delete("/users/u1/movies/1")
+      .set("authorization", `Bearer ${u1Token}`);
+
+    expect(resp.body).toEqual({ deleted: "1" });
+  });
+  test("unauth for other users", async () => {
+    const resp = await request(app)
+      .delete("/users/u1/movies/1")
+      .set("authorization", `Bearer ${u2Token}`);
+
+    expect(resp.statusCode).toEqual(401);
+  });
+  test("unauth for other anon", async () => {
+    const resp = await request(app).delete("/users/u1/movies/1");
+
+    expect(resp.statusCode).toEqual(401);
+  });
+
+  test("movie is not found", async () => {
+    const resp = await request(app)
+      .delete("/users/u1/movies/0")
+      .set("authorization", `Bearer ${adminToken}`);
+
+    expect(resp.statusCode).toEqual(404);
+  });
+});
 
 // POST /[username]/tvshows/[tvshow_id]
+describe("POST /:username/tvshows/:tvshow_id", () => {
+  test("works for admin", async () => {
+    const resp = await request(app)
+      .post("/users/u1/tvshows/2")
+      .set("authorization", `Bearer ${adminToken}`);
 
+    expect(resp.body).toEqual({ added: "2" });
+  });
+  test("works for correct user", async () => {
+    const resp = await request(app)
+      .post("/users/u1/tvshows/2")
+      .set("authorization", `Bearer ${u1Token}`);
+
+    expect(resp.body).toEqual({ added: "2" });
+  });
+  test("unauth for other users", async () => {
+    const resp = await request(app)
+      .post("/users/u1/tvshows/2")
+      .set("authorization", `Bearer ${u2Token}`);
+
+    expect(resp.statusCode).toEqual(401);
+  });
+  test("unauth for anon", async () => {
+    const resp = await request(app).post("/users/u1/tvshows/2");
+
+    expect(resp.statusCode).toEqual(401);
+  });
+
+  test("tv is not found", async () => {
+    const resp = await request(app)
+      .post("/users/u1/tvshows/0")
+      .set("authorization", `Bearer ${adminToken}`);
+
+    expect(resp.statusCode).toEqual(404);
+  });
+});
 // DELETE /[username]/tvshows/[tvshow_id]
+describe("DELETE /:username/tvshows/:tvshow_id", () => {
+  test("works for admin", async () => {
+    const resp = await request(app)
+      .delete("/users/u1/tvshows/1")
+      .set("authorization", `Bearer ${adminToken}`);
+
+    expect(resp.body).toEqual({ deleted: "1" });
+  });
+  test("works for correct user", async () => {
+    const resp = await request(app)
+      .delete("/users/u1/tvshows/1")
+      .set("authorization", `Bearer ${u1Token}`);
+
+    expect(resp.body).toEqual({ deleted: "1" });
+  });
+  test("unauth for other users", async () => {
+    const resp = await request(app)
+      .delete("/users/u1/tvshows/1")
+      .set("authorization", `Bearer ${u2Token}`);
+
+    expect(resp.statusCode).toEqual(401);
+  });
+  test("unauth for other anon", async () => {
+    const resp = await request(app).delete("/users/u1/tvshows/1");
+
+    expect(resp.statusCode).toEqual(401);
+  });
+
+  test("movie is not found", async () => {
+    const resp = await request(app)
+      .delete("/users/u1/tvshows/0")
+      .set("authorization", `Bearer ${adminToken}`);
+
+    expect(resp.statusCode).toEqual(404);
+  });
+});

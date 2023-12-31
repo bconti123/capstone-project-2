@@ -188,7 +188,7 @@ class User {
       [movie_id]
     );
     const movie = preCheck.rows[0];
-
+   
     if (!movie) throw new NotFoundError(`No movie found: ${movie_id}`);
 
     await db.query(
@@ -210,7 +210,7 @@ class User {
     const movie = preCheck.rows[0];
 
     if (!movie) throw new NotFoundError(`No movie found: ${movie_id}`);
-
+  
     await db.query(
       `DELETE
        FROM movie_list
@@ -248,7 +248,7 @@ class User {
     );
     const tv = preCheck.rows[0];
 
-    if (!tv) throw new NotFoundError(`No movie found: ${tvshow_id}`);
+    if (!tv) throw new NotFoundError(`No tv found: ${tvshow_id}`);
 
     await db.query(
       `DELETE
