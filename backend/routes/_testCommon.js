@@ -36,12 +36,12 @@ const commonBeforeAll = async () => {
     isAdmin: false,
   });
   await User.register({
-    username: "u3",
+    username: "admin",
     firstName: "u3F",
     lastName: "u3L",
     email: "u3@gmail.com",
     password: "password3",
-    isAdmin: false,
+    isAdmin: true,
   });
 
   // DO THIS LATER
@@ -122,6 +122,7 @@ const commonAfterAll = async () => {
 
 const u1Token = createToken({ username: "u1", isAdmin: false });
 const u2Token = createToken({ username: "u2", isAdmin: false });
+const adminToken = createToken({ username: "admin", isAdmin: true });
 
 module.exports = {
   commonBeforeAll,
@@ -132,4 +133,5 @@ module.exports = {
   u2Token,
   testMovieids,
   testTVids,
+  adminToken
 };
