@@ -36,12 +36,12 @@ const commonBeforeAll = async () => {
     isAdmin: false,
   });
   await User.register({
-    username: "admin",
+    username: "u3",
     firstName: "u3F",
     lastName: "u3L",
     email: "u3@gmail.com",
     password: "password3",
-    isAdmin: true,
+    isAdmin: false,
   });
 
   // DO THIS LATER

@@ -82,7 +82,7 @@ router.delete(
   ensureCorrectUserOrAdmin,
   async (req, res, next) => {
     try {
-      await User.delete(req.params.username);
+      await User.remove(req.params.username);
       return res.json({ deleted: req.params.username });
     } catch (e) {
       return next(e);
@@ -93,12 +93,12 @@ router.delete(
 // Note: You need to make function in /models/user.js first
 // READ ABOVE BEFORE YOU DO THIS BELOW!
 
-// POST /[username]/movies/[movie_id] - Required Current User
+// POST /[username]/movies/[movie_id] - Required Admin or Current User
 
-// DELETE /[username]/movies/[movie_id] - Required Current User
+// DELETE /[username]/movies/[movie_id] - Required Admin or Current User
 
-// POST /[username]/tvshows/[tvshow_id] - Required Current User
+// POST /[username]/tvshows/[tvshow_id] - Required Admin or Current User
 
-// DELETE /[username]/tvshows/[tvshow_id] - Required Current User
+// DELETE /[username]/tvshows/[tvshow_id] - Required Admin or Current User
 
 module.exports = router;
