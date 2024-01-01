@@ -81,6 +81,7 @@ const commonBeforeAll = async () => {
       name: "tv1",
       overview: "overview1",
       first_air_date: "Jan 01, 2020",
+      poster_path: "/img.png",
       genres_id: [1, 2, 3],
     })
   ).id;
@@ -90,6 +91,7 @@ const commonBeforeAll = async () => {
       name: "tv2",
       overview: "overview2",
       first_air_date: "Jan 01, 2020",
+      poster_path: "/img.png",
       genres_id: [1, 2, 3],
     })
   ).id;
@@ -99,6 +101,7 @@ const commonBeforeAll = async () => {
       name: "tv3",
       overview: "overview3",
       first_air_date: "Jan 01, 2020",
+      poster_path: "/img.png",
       genres_id: [1, 2, 3],
     })
   ).id;
