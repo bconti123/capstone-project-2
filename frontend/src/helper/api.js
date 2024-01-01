@@ -91,5 +91,7 @@ class backendAPI {
   }
 
   // Will add GET list in users route later.
-  
+
 }
+
+export default backendAPI;
