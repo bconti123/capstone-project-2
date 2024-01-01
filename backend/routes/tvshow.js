@@ -28,6 +28,16 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+// GET /[tvshow_id]
+router.get("/:tvshow_id", async (req, res, next) => {
+  try {
+    const tvshow = await TV.get(req.params.tvshow_id);
+    return res.status(200).json({ tvshow });
+  } catch (e) {
+    return next(e);
+  }
+});
+
 // GET /list/[filterType]/[page?]
 // filterType = airing_today, on_the_air, popular, or top_rated
 router.get("/list/:filterType/:page?", async (req, res, next) => {
@@ -37,17 +47,7 @@ router.get("/list/:filterType/:page?", async (req, res, next) => {
       req.params.filterType,
       req.params.page
     );
-    return res.status(200).json({ tvshows });
-  } catch (e) {
-    return next(e);
-  }
-});
-
-// GET /[tvshow_id]
-router.get("/:tvshow_id", async (req, res, next) => {
-  try {
-    const tvshow = await TV.get(req.params.tvshow_id);
-    return res.status(200).json({ tvshow });
+    return res.status(200).json({ tvshows: tvshows.data });
   } catch (e) {
     return next(e);
   }

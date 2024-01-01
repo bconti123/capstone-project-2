@@ -8,6 +8,9 @@
     - POST /users
     - UPDATE /users/:username
     - DELETE /users/:username
+### Display user's list - Will add this to user model and route
+    - GET /users/:username/movies
+    - GET /users/:username/tvshows
 
 ### Add movie/tv show to user's favorite list
     - POST /users/:username/movies/:movie_id
@@ -23,14 +26,13 @@
 ### We will use TMDB API for movies and tv shows routes below:
 ### Movies Route
     - GET /movies
-    - GET /movies/popular
-    - GET /movies/now_playing
-    - GET /top_rated
+    - POST /movies
     - GET /movies/:id
+    - GET /movies/list/:filterType/:page?
+
 
 ### TV Series Route
     - GET /tvshows
-    - GET /tvshows/popular
-    - GET /tvshows/now_playing
-    - GET /tvshows/top_rated
+    - POST /tvshows
     - GET /tvshows/:id
+    - GET /tvshows/list/:filterType/:page?
