@@ -1,9 +1,10 @@
 const axios = require("axios");
 
 const { API_TOKEN } = require("../config");
-const BASE_URL = `https://api.themoviedb.org/4`;
+const { BadRequestError } = require("../expressError");
+const BASE_URL = `https://api.themoviedb.org/3`;
 
-class moviedbAPI {
+class mediaAPI {
   static async APIrequest(endpoint) {
     const url = `${BASE_URL}/${endpoint}`;
     const headers = { Authorization: `Bearer ${API_TOKEN}` };
@@ -16,24 +17,27 @@ class moviedbAPI {
       throw Array.isArray(message) ? message : [message];
     }
   }
-  // type = now_playing, popular, upcoming, or top_rated
-  static async movieList(type, page=1) {
+  // Movies: filterType = now_playing, popular, upcoming, or top_rated
+  // TV Series: filterType = airing_today, on_the_air, popular, or top_rated
+  static async MediaTypeList(mediaType, filterType, page = 1) {
     try {
-      return await this.APIrequest(`movie/${type}?page=${page}&language=en`);
+      const pageNumber = parseInt(page, 10);
+      if (isNaN(pageNumber) || pageNumber < 1) {
+        throw new BadRequestError("Invalid page number");
+      }
+      return await this.APIrequest(
+        `${mediaType}/${filterType}?page=${pageNumber}&language=en`
+      );
     } catch (e) {
-      console.error("Error fetching now playing movies: ", e);
-      throw e;
-    }
-  }
-
-  static async tvList(type, page=1) {
-    try {
-      return await this.APIrequest(`tv/${type}?page${page}&language=en`)
-    } catch (e) {
-      console.error("Error fetching now playing tv series: ", e);
+      console.error(
+        `Error fetching now playing ${(mediaType === "movie"
+          ? "movies"
+          : "tv series")}: `,
+        e
+      );
       throw e;
     }
   }
 }
 
-module.exports = moviedbAPI;
+module.exports = mediaAPI;

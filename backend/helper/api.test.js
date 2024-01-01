@@ -1,107 +1,72 @@
-const moviedbAPI = require("./api.js");
+const mediaAPI = require("./api.js");
 
 describe("If it is a function?", () => {
   test("works:", async () => {
-    const type = typeof moviedbAPI;
+    const type = typeof mediaAPI;
     expect(type).toEqual("function");
   });
 });
 
 describe("now playing movie", () => {
   test("works", async () => {
-    try {
-      const movie = await moviedbAPI.movieList("now_playing");
-      expect(movie.data.results.length).toEqual(20);
-      expect(movie.status).toEqual(200);
-    } catch (e) {
-      // Handle the error if needed
-      console.error("Test error: ", e);
-    }
+    const movie = await mediaAPI.MediaTypeList("movie", "now_playing");
+    expect(movie.data.results.length).toEqual(20);
+    expect(movie.status).toEqual(200);
   });
 });
 
 describe("popular movie", () => {
   test("works", async () => {
-    try {
-      const movie = await moviedbAPI.movieList("popular");
-      expect(movie.data.results.length).toEqual(20);
-      expect(movie.status).toEqual(200);
-    } catch (e) {
-      console.error("Test error: ", e);
-    }
+    const movie = await mediaAPI.MediaTypeList("movie", "popular");
+    expect(movie.data.results.length).toEqual(20);
+    expect(movie.status).toEqual(200);
   });
 });
 
 describe("top rated movie", () => {
   test("works", async () => {
-    try {
-      const movie = await moviedbAPI.movieList("top_rated");
-      expect(movie.data.results.length).toEqual(20);
-      expect(movie.status).toEqual(200);
-    } catch (e) {
-      console.error("Test error: ", e);
-    }
+    const movie = await mediaAPI.MediaTypeList("movie", "top_rated");
+    expect(movie.data.results.length).toEqual(20);
+    expect(movie.status).toEqual(200);
   });
 });
 
 describe("upcoming movie", () => {
   test("works", async () => {
-    try {
-      const movie = await moviedbAPI.movieList("upcoming");
-      expect(movie.data.results.length).toEqual(20);
-      expect(movie.status).toEqual(200);
-    } catch (e) {
-      console.error("Test error: ", e);
-    }
+    const movie = await mediaAPI.MediaTypeList("movie", "upcoming");
+    expect(movie.data.results.length).toEqual(20);
+    expect(movie.status).toEqual(200);
   });
 });
 
-describe("now playing tv", () => {
+describe("airing today tv", () => {
   test("works", async () => {
-    try {
-      const movie = await moviedbAPI.tvList("now_playing");
-      expect(movie.data.results.length).toEqual(20);
-      expect(movie.status).toEqual(200);
-    } catch (e) {
-      // Handle the error if needed
-      console.error("Test error: ", e);
-    }
+    const movie = await mediaAPI.MediaTypeList("tv", "airing_today");
+    expect(movie.data.results.length).toEqual(20);
+    expect(movie.status).toEqual(200);
   });
 });
 
 describe("popular tv", () => {
   test("works", async () => {
-    try {
-      const movie = await moviedbAPI.tvList("popular");
-      expect(movie.data.results.length).toEqual(20);
-      expect(movie.status).toEqual(200);
-    } catch (e) {
-      console.error("Test error: ", e);
-    }
+    const movie = await mediaAPI.MediaTypeList("tv", "popular");
+    expect(movie.data.results.length).toEqual(20);
+    expect(movie.status).toEqual(200);
   });
 });
 
 describe("top_rated tv", () => {
   test("works", async () => {
-    try {
-      const movie = await moviedbAPI.tvList("top_rated");
-      expect(movie.data.results.length).toEqual(20);
-      expect(movie.status).toEqual(200);
-    } catch (e) {
-      // Handle the error if needed
-      console.error("Test error: ", e);
-    }
+    const movie = await mediaAPI.MediaTypeList("tv", "top_rated");
+    expect(movie.data.results.length).toEqual(20);
+    expect(movie.status).toEqual(200);
   });
 });
 
-describe("upcoming tv", () => {
+describe("on the air tv", () => {
   test("works", async () => {
-    try {
-      const movie = await moviedbAPI.tvList("upcoming");
-      expect(movie.data.results.length).toEqual(20);
-      expect(movie.status).toEqual(200);
-    } catch (e) {
-      console.error("Test error: ", e);
-    }
+    const movie = await mediaAPI.MediaTypeList("tv", "on_the_air");
+    expect(movie.data.results.length).toEqual(20);
+    expect(movie.status).toEqual(200);
   });
 });
