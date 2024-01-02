@@ -30,7 +30,7 @@ class backendAPI {
 
   // Individual API routes
 
-  // Auth route (For register and login)
+  /* ================================ Auth route (For register and login) ====================== */
 
   // POST /auth/token - Login
   static async login(username, password) {
@@ -47,7 +47,7 @@ class backendAPI {
     return res.token;
   }
 
-  // User route
+  /* ==================================== User route ============================================= */
 
   // GET /users/:username
   static async getUsername(username) {
