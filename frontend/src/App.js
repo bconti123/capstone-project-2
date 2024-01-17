@@ -1,11 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter } from 'react-router-dom';
+import NavigationApp from './routes/Navigation';
+import RouterApp from './routes/Routes';
 
 function App() {
   return (
-    <div className="App">
-      {/* REACT APP ADD ANYTHING */}
-    </div>
+    <BrowserRouter>
+      <NavigationApp />
+      <RouterApp />
+    </BrowserRouter>
   );
 }
 
