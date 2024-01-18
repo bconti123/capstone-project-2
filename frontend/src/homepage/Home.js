@@ -1,19 +1,20 @@
 import React from "react";
-import { Container, Header, Segment } from 'semantic-ui-react'
+import { Button, Header, Segment } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
-    return (
-        <Container fluid>
-        <Segment textAlign="center" vertical>
-            <Header as="h1">Welcome to My Website</Header>
-            <p>
-                This is a simple homepage created using Semantic UI React.
-            </p>
-        </Segment>
+  return (
+    <Segment textAlign="center" vertical>
+      <Header as="h1">The Streaming Application</Header>
 
-        {/* Add more sections or components as needed */}
-        </Container>
-    )
-}
+      <Button primary as={Link} to="/login">
+        Login
+      </Button>
+      <Button primary as={Link} to="/signup">
+        Sign Up
+      </Button>
+    </Segment>
+  );
+};
 
 export default Home;

@@ -4,11 +4,11 @@ import { Menu } from "semantic-ui-react";
 const NavigationApp = () => {
     return (
         <Menu pointing secondary>
-            <Menu.Item as={NavLink} to="/" exact>
+            <Menu.Item as={NavLink} to="/">
                 Brand
             </Menu.Item>
             <Menu.Menu position="right">
-                <Menu.Item as={NavLink} to="/" exact>
+                <Menu.Item as={NavLink} to="/">
                     Home
                 </Menu.Item>
                 <Menu.Item as={NavLink} to="/login">
