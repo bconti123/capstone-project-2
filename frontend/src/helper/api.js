@@ -91,8 +91,21 @@ class backendAPI {
     await this.request(`users/${username}/tvshows/${id}`, "delete");
   }
 
-  // Will add GET list in users route later.
+  // GET /:mediaType/list/:filterType/:page?
+  static async getMediaList(mediaType, filterType, page = 1) {
+    console.log(
+      "mediaType: ",
+      mediaType,
+      "filterType: ",
+      filterType,
+      "page: ",
+      page
+    );
+    let result = await this.request(`${mediaType}/list/${filterType}/${page}`)
+    return result.movies || result.tvshows
+  }
 
+  // Will add GET list in users route later.
 }
 
 export default backendAPI;
