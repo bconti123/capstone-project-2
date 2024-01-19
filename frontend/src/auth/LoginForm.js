@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Button, Form } from "semantic-ui-react";
+import { useNavigate, Link } from "react-router-dom";
+import { Button, Form, Grid, Segment, Header, Message } from "semantic-ui-react";
 
 const LoginForm = ({ login }) => {
   const navigate = useNavigate();
@@ -26,25 +26,39 @@ const LoginForm = ({ login }) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Input
-        label="Username"
-        type="text"
-        name="username"
-        value={formData.username}
-        onChange={handleChange}
-      />
-      <Form.Input
-        label="Password"
-        type="password"
-        name="password"
-        value={formData.password}
-        onChange={handleChange}
-      />
-      <Button type="submit" primary>
-        Login
-      </Button>
-    </Form>
+    <Grid textAlign="center" style={{ height: "75vh" }} verticalAlign="middle">
+      <Grid.Column style={{ maxWidth: 450 }}>
+        <Header as="h2" textAlign="center">
+          Log in to your account
+        </Header>
+        <Segment stacked>
+          <Form onSubmit={handleSubmit} size="large">
+            <Form.Input
+              placeholder="Username"
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+            />
+            <Form.Input
+              placeholder="Password"
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+            <Button type="submit" primary fluid>
+              Login
+            </Button>
+          </Form>
+        </Segment>
+        <Message>
+          Are you new to this?
+          <Link to="/signup"> Sign Up</Link>
+          
+        </Message>
+      </Grid.Column>
+    </Grid>
   );
 };
 

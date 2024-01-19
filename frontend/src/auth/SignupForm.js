@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Form, Segment } from "semantic-ui-react";
+import {
+  Button,
+  Form,
+  Grid,
+  Header,
+  Message,
+  Segment,
+} from "semantic-ui-react";
 
 const SignupForm = ({ signup }) => {
   const navigate = useNavigate();
@@ -29,49 +36,63 @@ const SignupForm = ({ signup }) => {
     }
   };
   return (
-    <Segment textAlign="center" vertical>
-      <Form onSubmit={handleSubmit}>
-        <Form.Input
-          label="Username"
-          type="text"
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
-          width={6}
-        />
-        <Form.Input
-          label="Password"
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        <Form.Input
-          label="First Name"
-          type="text"
-          name="firstName"
-          value={formData.firstName}
-          onChange={handleChange}
-        />
-        <Form.Input
-          label="Last Name"
-          type="text"
-          name="lastName"
-          value={formData.lastName}
-          onChange={handleChange}
-        />
-        <Form.Input
-          label="Email"
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        <Button type="submit" primary>
-          Sign Up
-        </Button>
-      </Form>
-    </Segment>
+    <Grid textAlign="center" style={{ height: "75vh" }} verticalAlign="middle">
+      <Grid.Column style={{ maxWidth: 450 }}>
+        <Header as="h2" textAlign="center">
+          Register your account
+          </Header> 
+        <Form onSubmit={handleSubmit} size="large">
+          <Segment stacked>
+            <Form.Group widths={"equal"}>
+              <Form.Input
+                type="text"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+                placeholder="Username"
+              />
+              <Form.Input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Password"
+              />
+            </Form.Group>
+            <Form.Group widths={"equal"}>
+              <Form.Input
+                type="text"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                placeholder="First Name"
+              />
+              <Form.Input
+                type="text"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                placeholder="Last Name"
+              />
+            </Form.Group>
+            <Form.Input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Email"
+            />
+            <Button type="submit" primary fluid>
+              Sign Up
+            </Button>
+          </Segment>
+        </Form>
+        <Message>
+          Already have an account? 
+          <Link to="/login"> Log In</Link>
+        </Message>
+      </Grid.Column>
+    </Grid>
   );
 };
 
