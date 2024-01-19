@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Form, Segment } from "semantic-ui-react";
 
 const SignupForm = ({ signup }) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -9,13 +11,22 @@ const SignupForm = ({ signup }) => {
     lastName: "",
     email: "",
   });
+  const [formErrors, setFormErrors] = useState([]);
 
   const handleChange = (evt, { name, value }) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = () => {
-    console.log("Form submitted: ", formData);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    let result = await signup(formData);
+    // console.log("Form submitted: ", formData);
+    // console.log("Username type: ", typeof formData.username);
+    if (result.success) {
+      navigate("/");
+    } else {
+      setFormErrors(result.errors);
+    }
   };
   return (
     <Segment textAlign="center" vertical>

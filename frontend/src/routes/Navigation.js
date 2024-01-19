@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Menu } from "semantic-ui-react";
-const NavigationApp = () => {
+const NavigationApp = (logout) => {
     return (
         <Menu pointing secondary>
             <Menu.Item as={NavLink} to="/">

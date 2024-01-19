@@ -12,7 +12,7 @@ class backendAPI {
   // the token for interactive with the API will be stored here.
   static token;
 
-  static async request(endpoint, data = ({}.method = "get")) {
+  static async request(endpoint, data = {}, method = "get") {
     console.debug("API Call:", endpoint, data, method);
 
     const url = `${BASE_URL}/${endpoint}`; // Example: http://localhost:3001/users, /auth, /movies, or /tvshows.
@@ -38,7 +38,8 @@ class backendAPI {
     return res.token;
   }
   // POST /auth/register - Register
-  static async register(username, password, firstName, lastName, email) {
+  static async signup(username, password, firstName, lastName, email) {
+    // console.log("Backend username type: ", typeof username)
     let res = await this.request(
       "auth/register",
       { username, password, firstName, lastName, email },
@@ -57,13 +58,13 @@ class backendAPI {
 
   // PATCH /users/:username
   static async updateUsername(username, data) {
-    let res = await this.request(`users/${username}`, "patch");
+    let res = await this.request(`users/${username}`, data, "patch");
     return res.user;
   }
 
   // DELETE /users/:username
   static async deleteUsername(username) {
-    let res = await this.request(`users/${username}`, data, "delete");
+    let res = await this.request(`users/${username}`, "delete");
     return res.deleted;
   }
 
@@ -87,7 +88,7 @@ class backendAPI {
 
   // DELETE /users/:username/tvshows/:tvshow_id
   static async removeTVList(username, id) {
-    let res = await this.request(`users/${username}/tvshows/${id}`, "delete");
+    await this.request(`users/${username}/tvshows/${id}`, "delete");
   }
 
   // Will add GET list in users route later.
