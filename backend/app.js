@@ -3,6 +3,8 @@
 /** Express app for streaming service. */
 
 const express = require("express");
+const cors = require("cors");
+
 const { NotFoundError } = require("./expressError");
 const { authenticateJWT } = require("./middleware/auth.js");
 // Routes
@@ -13,6 +15,8 @@ const tvRoutes = require("./routes/tvshow.js");
 
 // app express setup
 const app = express();
+
+app.use(cors());
 app.use(express.json());
 
 // middleware
