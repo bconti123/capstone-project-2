@@ -1,7 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import backendAPI from "../helper/api";
-import { Image, Segment } from "semantic-ui-react";
+import { Segment } from "semantic-ui-react";
+import MediaItem from "./MediaItem";
 
 const MediaList = ({ mediaType, filterType }) => {
   const [media, setMedia] = useState(null);
@@ -20,10 +21,7 @@ const MediaList = ({ mediaType, filterType }) => {
 
   return (
     <Segment>
-      MediaList
-      {media.results.map((item) => (
-        <Image src={`https://image.tmdb.org/t/p/w200/${item.poster_path}`} />
-      ))}
+      <MediaItem media={media} />
     </Segment>
   );
 };

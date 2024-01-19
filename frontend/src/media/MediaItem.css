@@ -1,0 +1,41 @@
+/* MediaItem.css */
+
+.slick-prev,
+.slick-next {
+  font-size: 18px;
+  color: #000000;
+  z-index: 1; /* Ensure the arrows are above the slides */
+}
+
+.slick-prev {
+  left: 10px;
+}
+
+.slick-next {
+  right: 10px;
+}
+
+/* Hide the textual labels */
+.slick-prev:before,
+.slick-next:before {
+  content: none !important;
+}
+
+/* Style the custom arrows */
+.custom-arrow {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #000000;
+  z-index: 1; /* Ensure the custom arrows are above the slides */
+}
+
+.custom-prev {
+  left: 10px;
+}
+
+.custom-next {
+  right: 10px;
+}
