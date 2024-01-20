@@ -5,7 +5,7 @@ const NavigationApp = (logout) => {
     return (
         <Menu pointing secondary>
             <Menu.Item as={NavLink} to="/">
-                Brand
+                Streaming App
             </Menu.Item>
             <Menu.Menu position="right">
                 <Menu.Item as={NavLink} to="/">
