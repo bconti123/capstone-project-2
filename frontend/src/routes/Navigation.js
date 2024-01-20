@@ -1,26 +1,44 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { Menu } from "semantic-ui-react";
-const NavigationApp = (logout) => {
-    return (
-        <Menu pointing secondary>
-            <Menu.Item as={NavLink} to="/">
-                Streaming App
+import UserContext from "../auth/UserContext";
+const NavigationApp = ({ logout }) => {
+  const { currentUser } = useContext(UserContext);
+  console.debug("Navigation", "currentUsers= ", currentUser);
+  console.log("NavApp", "currentUser= ", currentUser);
+
+  return (
+    <Menu pointing secondary>
+      <Menu.Item as={NavLink} to="/">
+        Streaming App
+      </Menu.Item>
+      <Menu.Menu position="right">
+        <Menu.Item as={NavLink} to="/">
+          Home
+        </Menu.Item>
+        {currentUser ? (
+          <>
+            <Menu.Item as={NavLink} to="/movies">
+              Movie
             </Menu.Item>
-            <Menu.Menu position="right">
-                <Menu.Item as={NavLink} to="/">
-                    Home
-                </Menu.Item>
-                <Menu.Item as={NavLink} to="/login">
-                    Login
-                </Menu.Item>
-                <Menu.Item as={NavLink} to="/signup">
-                    Sign Up
-                </Menu.Item>
-            </Menu.Menu>
-            {/* Add protected route for movie/tv show later */}
-        </Menu>
-    )
-}
+            <Menu.Item as={NavLink} to="/" onClick={logout}>
+              Logout {currentUser.first_name || currentUser.username}
+            </Menu.Item>
+          </>
+        ) : (
+          <>
+            <Menu.Item as={NavLink} to="/login">
+              Login
+            </Menu.Item>
+            <Menu.Item as={NavLink} to="/signup">
+              Sign Up
+            </Menu.Item>
+          </>
+        )}
+      </Menu.Menu>
+      {/* Add protected route for movie/tv show later */}
+    </Menu>
+  );
+};
 
 export default NavigationApp;
