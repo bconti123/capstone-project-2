@@ -2,17 +2,45 @@ import "./App.css";
 import { BrowserRouter } from "react-router-dom";
 import NavigationApp from "./routes/Navigation";
 import RouterApp from "./routes/Routes";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import backendAPI from "./helper/api";
+import UserContext from "./auth/UserContext";
+import { jwtDecode } from "jwt-decode";
+import useLocalStorage from "./hooks/useLocalStorage";
 
+export const TOKEN_STORAGE_ID = "backend_token";
 function App() {
+  const [infoLoaded, setInfoLoaded] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID);
 
   // Load user info from API. Until a user is logged in and they have a token,
   // this should not run. It only needs to re-run when a user do logout,
   // so the value of the token is a dependency for this effect.
-  // TODO CODE
+  useEffect(() => {
+    console.debug("App useEffect", "token=", token);
+    console.log("App useEffect", "token= ", token);
+    const getCurrentUser = async () => {
+      if (token) {
+        try {
+          let { username } = jwtDecode(token);
+          backendAPI.token = token;
+          let currentUser = await backendAPI.getUsername(username);
+          setCurrentUser(currentUser);
+        } catch (errors) {
+          console.error("App loadUserInfo: problem loading", errors);
+          setCurrentUser(null);
+        }
+      }
+      setInfoLoaded(true);
+    };
+
+    // set infoLoaded to false while async getCurrentUser runs; once the
+    // data is fetched (or even if an error happens!), this will be set back
+    setInfoLoaded(false);
+    getCurrentUser();
+    console.log("Get Username", "currentUser= ", currentUser);
+  }, [token, currentUser]);
 
   // Handles site-wide logout
   const logout = () => {
@@ -52,10 +80,15 @@ function App() {
       return { success: false, errors };
     }
   };
+
+  if (!infoLoaded) return <h1>Loading...</h1>;
+
   return (
     <BrowserRouter>
-      <NavigationApp logout={logout} />
-      <RouterApp signup={signup} login={login} />
+      <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+        <NavigationApp logout={logout} />
+        <RouterApp signup={signup} login={login} />
+      </UserContext.Provider>
     </BrowserRouter>
   );
 }
