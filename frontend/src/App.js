@@ -19,16 +19,15 @@ function App() {
   // so the value of the token is a dependency for this effect.
   useEffect(() => {
     console.debug("App useEffect", "token=", token);
-    console.log("App useEffect", "token= ", token);
     const getCurrentUser = async () => {
       if (token) {
         try {
-          let { username } = jwtDecode(token);
+          const { username } = jwtDecode(token);
           backendAPI.token = token;
-          let currentUser = await backendAPI.getUsername(username);
+          const currentUser = await backendAPI.getUsername(username);
           setCurrentUser(currentUser);
-        } catch (errors) {
-          console.error("App loadUserInfo: problem loading", errors);
+        } catch (error) {
+          console.error("Error loading user info", error);
           setCurrentUser(null);
         }
       }
@@ -39,8 +38,7 @@ function App() {
     // data is fetched (or even if an error happens!), this will be set back
     setInfoLoaded(false);
     getCurrentUser();
-    console.log("Get Username", "currentUser= ", currentUser);
-  }, [token, currentUser]);
+  }, [token]);
 
   // Handles site-wide logout
   const logout = () => {
