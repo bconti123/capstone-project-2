@@ -5,7 +5,6 @@ import UserContext from "../auth/UserContext";
 const NavigationApp = ({ logout }) => {
   const { currentUser } = useContext(UserContext);
   console.debug("Navigation", "currentUsers= ", currentUser);
-  console.log("NavApp", "currentUser= ", currentUser);
 
   return (
     <Menu pointing secondary>
@@ -13,16 +12,19 @@ const NavigationApp = ({ logout }) => {
         Streaming App
       </Menu.Item>
       <Menu.Menu position="right">
-        <Menu.Item as={NavLink} to="/">
+        {/* <Menu.Item as={NavLink} to="/">
           Home
-        </Menu.Item>
+        </Menu.Item> */}
         {currentUser ? (
           <>
             <Menu.Item as={NavLink} to="/movies">
               Movie
             </Menu.Item>
+            <Menu.Item as={NavLink} to="/tvshows">
+              TV Show
+            </Menu.Item>
             <Menu.Item as={NavLink} to="/" onClick={logout}>
-              Logout {currentUser.first_name || currentUser.username}
+              Logout - (Hi {currentUser.first_name || currentUser.username})
             </Menu.Item>
           </>
         ) : (

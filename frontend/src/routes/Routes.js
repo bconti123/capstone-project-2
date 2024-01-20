@@ -6,22 +6,25 @@ import { Container } from "semantic-ui-react";
 import Home from "../homepage/Home";
 import LoginForm from "../auth/LoginForm";
 import SignupForm from "../auth/SignupForm";
-import MediaList from "../media/MediaList";
+import PrivateRoute from "./PrivateRoute";
+import Movie from "../browse/Movie";
+import TVshow from "../browse/TVshow";
 
 const RouterApp = ({ login, signup }) => {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route exact path="/login" element={<LoginForm login={login} />} />
-      <Route exact path="/signup" element={<SignupForm signup={signup} />} />
-
-      <Route
-        path="/movies"
-        element={<MediaList mediaType="movies" filterType="popular" />}
-      />
-      {/* Add more later */}
-      <Route path="*" element={<h1>404! ERROR</h1>} />
-    </Routes>
+    <Container fluid>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route exact path="/login" element={<LoginForm login={login} />} />
+        <Route exact path="/signup" element={<SignupForm signup={signup} />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/movies" element={<Movie />} />
+          <Route path="/tvshows" element={<TVshow />} />
+        </Route>
+        {/* Add more later */}
+        <Route path="*" element={<h1>404! ERROR</h1>} />
+      </Routes>
+    </Container>
   );
 };
 
