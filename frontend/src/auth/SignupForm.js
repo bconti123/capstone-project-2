@@ -33,6 +33,7 @@ const SignupForm = ({ signup }) => {
       navigate("/");
     } else {
       setFormErrors(result.errors);
+      console.debug(formErrors)
     }
   };
   return (
