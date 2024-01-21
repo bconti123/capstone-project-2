@@ -93,7 +93,7 @@ class backendAPI {
 
   // GET /:mediaType/list/:filterType/:page?
   static async getMediaList(mediaType, filterType, page = 1) {
-    console.log(
+    console.debug(
       "mediaType: ",
       mediaType,
       "filterType: ",
