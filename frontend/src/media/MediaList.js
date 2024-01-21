@@ -10,11 +10,11 @@ const MediaList = ({ mediaType, filterType }) => {
   const List = async (mediaType, filterType) => {
     let media = await backendAPI.getMediaList(mediaType, filterType);
     setMedia(media);
-    console.log(media.results);
+    // console.log(media.results);
   };
 
   useEffect(() => {
-    console.log("MediaList useEffect", mediaType, filterType);
+    // console.log("MediaList useEffect", mediaType, filterType);
     List(mediaType, filterType);
   }, [mediaType, filterType]);
   if (!media) return <p>Loading...</p>;
