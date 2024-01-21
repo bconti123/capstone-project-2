@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { Menu } from "semantic-ui-react";
 import UserContext from "../auth/UserContext";
 const NavigationApp = ({ logout }) => {
@@ -23,7 +23,7 @@ const NavigationApp = ({ logout }) => {
             <Menu.Item as={NavLink} to="/tvshows">
               TV Show
             </Menu.Item>
-            <Menu.Item as={NavLink} to="/" onClick={logout}>
+            <Menu.Item as={Link} to="/" onClick={logout}>
               Logout - (Hi {currentUser.first_name || currentUser.username})
             </Menu.Item>
           </>
