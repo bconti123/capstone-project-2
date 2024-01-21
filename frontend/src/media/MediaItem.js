@@ -1,12 +1,5 @@
-import React from "react";
-import {
-  Image,
-  Item,
-  Segment,
-  Reveal,
-  RevealContent,
-  Header,
-} from "semantic-ui-react";
+import React, { useState } from "react";
+import { Image, Item, Segment, Header, Modal } from "semantic-ui-react";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -15,13 +8,20 @@ import "./MediaItem.css";
 
 const MediaItem = ({ media }) => {
   const settings = {
-    slidesToShow: 5,
+    slidesToShow: 7,
     slidesToScroll: 1,
     swipeToSlide: true, // Enable direct mouse movement
     infinite: true, // Ensure infinite loop
-    dots:true,
+    dots: true,
     arrows: false,
     responsive: [
+      {
+        breakpoint: 1280,
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 1,
+        },
+      },
       {
         breakpoint: 1024,
         settings: {
@@ -46,41 +46,70 @@ const MediaItem = ({ media }) => {
     ],
   };
 
+  const [open, setOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  const openModal = (item) => {
+    setSelectedItem(item);
+    setOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedItem(null);
+    setOpen(false);
+  };
   return (
-    // <Grid>
-    //   {media.results.map((item) => (
-    //     <GridColumn key={item.id} width={2}>
-    //       <Image src={`https://image.tmdb.org/t/p/w200/${item.poster_path}`} />
-    //     </GridColumn>
-    //   ))}
-    // </Grid>
-    <Slider {...settings}>
-      {media.results.map((item) => (
-        <div key={item.id}>
-          {item.poster_path ? (
-            <Reveal animated="fade" style={{ width: "200px", height: "300px" }}>
-              <RevealContent visible>
+    <>
+      <Slider {...settings}>
+        {media.results.map((item) => (
+          <div key={item.id}>
+            {item.poster_path ? (
+              <>
                 <Image
                   src={`https://image.tmdb.org/t/p/w200/${item.poster_path}`}
-                  style={{ width: "100%", height: "100%" }}
+                  bordered
+                  onClick={(e) => {
+                    e.preventDefault();
+                  }}
+                  onDoubleClick={() => openModal(item)}
+                  style={{
+                    width: "200px",
+                    height: "300px",
+                    cursor: "pointer",
+                  }}
                 />
-              </RevealContent>
-              <RevealContent hidden>
-                <Item textAlign="center" style={{ width: "100%", height: "300px", backgroundColor:"" }}>
-                <Header as="h5" textAlign="center">{item.title || item.name}</Header>
-                <Image
-                  src={`https://image.tmdb.org/t/p/w200/${item.backdrop_path}`}
-                  style={{ width: "100%", height: "auto" }}
-                />
-                </Item>
-              </RevealContent>
-            </Reveal>
-          ) : (
-            <Segment textAlign="center">Sorry, no image</Segment>
+              </>
+            ) : (
+              <Segment
+                textAlign="center"
+                style={{ width: "200px", height: "300px", cursor: "pointer" }}
+              >
+                <Header as="h3" textAlign="center">
+                  {item.title || item.name}
+                </Header>
+                No image
+              </Segment>
+            )}
+          </div>
+        ))}
+      </Slider>
+      <Modal onClose={closeModal} open={open} textAlign="center">
+        <Modal.Content>
+          {selectedItem && (
+            <Item>
+              <Image
+                src={`https://image.tmdb.org/t/p/w500/${selectedItem.backdrop_path}`}
+                centered
+                fluid
+              />
+              <Header as="h3" textAlign="center" floated="right">
+                {selectedItem.title || selectedItem.name}
+              </Header>
+            </Item>
           )}
-        </div>
-      ))}
-    </Slider>
+        </Modal.Content>
+      </Modal>
+    </>
   );
 };
 
