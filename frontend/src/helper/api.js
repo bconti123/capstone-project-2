@@ -101,8 +101,15 @@ class backendAPI {
       "page: ",
       page
     );
-    let result = await this.request(`${mediaType}/list/${filterType}/${page}`)
-    return result.movies || result.tvshows
+    let result = await this.request(`${mediaType}/list/${filterType}/${page}`);
+    return result.movies || result.tvshows;
+  }
+
+  // GET /:mediaType/:id
+  static async getMediaDetail(mediaType, id) {
+    console.debug("mediaType: ", mediaType, "id: ", id);
+    let result = await this.request(`${mediaType}/${id}`);
+    return result.movie || result.tvshow;
   }
 
   // Will add GET list in users route later.
