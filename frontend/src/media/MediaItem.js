@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import "./MediaItem.css";
+import MediaDetail from "./MediaDetail";
 
 const MediaItem = ({ media }) => {
   const settings = {
@@ -93,22 +94,7 @@ const MediaItem = ({ media }) => {
           </div>
         ))}
       </Slider>
-      <Modal onClose={closeModal} open={open} textAlign="center">
-        <Modal.Content>
-          {selectedItem && (
-            <Item>
-              <Image
-                src={`https://image.tmdb.org/t/p/w500/${selectedItem.backdrop_path}`}
-                centered
-                fluid
-              />
-              <Header as="h3" textAlign="center" floated="right">
-                {selectedItem.title || selectedItem.name}
-              </Header>
-            </Item>
-          )}
-        </Modal.Content>
-      </Modal>
+      <MediaDetail closeModal={closeModal} open={open} selectedItem={selectedItem} />
     </>
   );
 };
