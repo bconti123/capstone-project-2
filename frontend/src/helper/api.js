@@ -67,7 +67,7 @@ class backendAPI {
     let res = await this.request(`users/${username}`, "delete");
     return res.deleted;
   }
-
+  /* ================================ Add or Remove movie/TV in user list ==============================================================*/
   // POST /users/:username/movies/:movie_id
   static async addMovietoList(username, id) {
     let res = await this.request(`users/${username}/movies/${id}`, "post");
@@ -91,6 +91,7 @@ class backendAPI {
     await this.request(`users/${username}/tvshows/${id}`, "delete");
   }
 
+  /* ======================================= Media Route ========================================================================*/
   // GET /:mediaType/list/:filterType/:page?
   static async getMediaList(mediaType, filterType, page = 1) {
     console.debug(
@@ -112,6 +113,11 @@ class backendAPI {
     return result.movie || result.tvshow;
   }
 
+  // POST /:mediaType
+  static async addMediaList(mediaType, data) {
+    let result = await this.request(`${mediaType}`, data, "post");
+    return result.movie || result.tvshow;
+  }
   // Will add GET list in users route later.
 }
 
