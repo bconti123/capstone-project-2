@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import UserContext from "../auth/UserContext";
 import { Navigate, Outlet } from "react-router-dom";
 
-const PrivateRouter = () => {
+const PrivateRoute = () => {
   const { currentUser } = useContext(UserContext);
   console.debug(
     "PrivateRoute",
@@ -17,4 +17,4 @@ const PrivateRouter = () => {
   );
 };
 
-export default PrivateRouter;
+export default PrivateRoute;
