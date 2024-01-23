@@ -13,14 +13,12 @@ if (process.env.NODE_ENV === "production") {
     ssl: {
       rejectUnauthorized: false,
     },
-    protocol: "tcp",
   });
 } else {
   db = new Client({
     // host: "/var/run/postgresql",
     // database: getDatabaseUri(),
     connectionString: getDatabaseUri(),
-    protocol: "tcp",
   });
 }
 
