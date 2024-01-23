@@ -24,7 +24,7 @@ Enjoy a visually rich and interactive experience with the curated movie and TV s
 2. Fill out the forms, then click the "Submit" button.
 3. You will be redirected to the homepage, where you can enjoy the movie and TV show slider.
 
-![Streaming app](/streaming_app.png)
+![Streaming app](/image/streaming_app.png)
 
 
 ### Tests
