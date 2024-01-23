@@ -7,10 +7,10 @@ const BASE_URL = `https://api.themoviedb.org/3`;
 class mediaAPI {
   static async APIrequest(endpoint) {
     const url = `${BASE_URL}/${endpoint}`;
-    const headers = { Authorization: `Bearer ${API_TOKEN}` };
+    // const headers = { Authorization: `Bearer ${API_TOKEN}` };
     const method = "get";
     try {
-      return await axios({ url, method, headers });
+      return await axios({ url, method });
     } catch (e) {
       console.error("API Error: ", e.response.data);
       let message = e.response.data;
