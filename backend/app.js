@@ -16,7 +16,7 @@ const tvRoutes = require("./routes/tvshow.js");
 // app express setup
 const app = express();
 
-const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+const FRONTEND_URL = process.env.FRONTEND_URL;
 // CORS Options
 const corsOptions = {
   origin: FRONTEND_URL,
