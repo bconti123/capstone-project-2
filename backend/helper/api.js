@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-const { API_TOKEN } = require("../config");
+const { API_TOKEN, API_KEY } = require("../config");
 const { BadRequestError } = require("../expressError");
 const BASE_URL = `https://api.themoviedb.org/3`;
 
@@ -26,7 +26,7 @@ class mediaAPI {
         throw new BadRequestError("Invalid page number");
       }
       return await this.APIrequest(
-        `${mediaType}/${filterType}?page=${pageNumber}&language=en`
+        `${mediaType}/${filterType}?page=${pageNumber}&language=en&api_key=${API_KEY}`
       );
     } catch (e) {
       console.error(
