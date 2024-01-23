@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { NavLink, Link } from "react-router-dom";
-import { Menu } from "semantic-ui-react";
+import { Dropdown, Menu } from "semantic-ui-react";
 import UserContext from "../auth/UserContext";
 const NavigationApp = ({ logout }) => {
   const { currentUser } = useContext(UserContext);
@@ -23,9 +23,24 @@ const NavigationApp = ({ logout }) => {
             <Menu.Item as={NavLink} to="/tvshows">
               TV Show
             </Menu.Item>
-            <Menu.Item as={Link} to="/" onClick={logout}>
-              Logout - (Hi {currentUser.first_name || currentUser.username})
+            <Menu.Item>
+              <Dropdown as={Link}
+                text={`Hello, ${
+                  currentUser.first_name || currentUser.username
+                }`}
+                pointing
+              >
+                <Dropdown.Menu>
+                  <Dropdown.Item as={Link} to="/edit-profile">
+                    Edit Profile
+                  </Dropdown.Item>
+                  <Dropdown.Item as={Link} to="/" onClick={logout}>Logout</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             </Menu.Item>
+            {/* <Menu.Item as={Link} to="/" onClick={logout}>
+              Logout - (Hi {currentUser.first_name || currentUser.username})
+            </Menu.Item> */}
           </>
         ) : (
           <>

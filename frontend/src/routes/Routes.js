@@ -9,6 +9,7 @@ import SignupForm from "../auth/SignupForm";
 import PrivateRoute from "./PrivateRoute";
 import Movie from "../browse/Movie";
 import TVshow from "../browse/TVshow";
+import Profile from "../profile/Profile";
 
 const RouterApp = ({ login, signup }) => {
   return (
@@ -20,6 +21,7 @@ const RouterApp = ({ login, signup }) => {
         <Route element={<PrivateRoute />}>
           <Route path="/movies" element={<Movie />} />
           <Route path="/tvshows" element={<TVshow />} />
+          <Route path="/edit-profile" element={<Profile />} />
         </Route>
         {/* Add more later */}
         <Route path="*" element={<h1>404! ERROR</h1>} />
