@@ -1,20 +1,3 @@
-/* MediaItem.css */
-.slick-slider,
-.slick-list,
-.slick-track,
-.slick-slide,
-.slick-slide > div {
-  margin: 0;
-  padding: 0;
-}
-
-.slick-prev,
-.slick-next {
-  font-size: 18px;
-  color: #000000;
-  z-index: 1; /* Ensure the arrows are above the slides */
-}
-
 .slick-prev {
   left: 10px;
 }
@@ -23,27 +6,21 @@
   right: 10px;
 }
 
-/* Hide the textual labels */
-.slick-prev:before,
-.slick-next:before {
-  content: none !important;
+.slick-next:before,
+.slick-prev:before {
+  font-size: 20x;
+  color: black;
+  line-height: 17;
 }
 
-/* Style the custom arrows */
-.custom-arrow {
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 18px;
-  color: #000000;
-  z-index: 1; /* Ensure the custom arrows are above the slides */
+.slick-dots {
+  bottom: -40px;
 }
 
-.custom-prev {
-  left: 10px;
+.slick-dots li button:before {
+  font-size: 15px;
 }
 
-.custom-next {
-  right: 10px;
+.ui.segment:last-child {
+  margin-bottom: 10px;
 }
