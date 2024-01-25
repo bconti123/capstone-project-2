@@ -14,7 +14,7 @@ const MediaItem = ({ media }) => {
     swipeToSlide: true, // Enable direct mouse movement
     infinite: true, // Ensure infinite loop
     dots: true,
-    arrows: false,
+    // arrows: false,
     responsive: [
       {
         breakpoint: 1280,
