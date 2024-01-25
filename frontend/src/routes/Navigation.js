@@ -24,7 +24,7 @@ const NavigationApp = ({ logout }) => {
               TV Show
             </Menu.Item>
             <Menu.Item>
-              <Dropdown as={Link}
+              <Dropdown
                 text={`Hello, ${
                   currentUser.first_name || currentUser.username
                 }`}
