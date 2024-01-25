@@ -78,12 +78,10 @@ function App() {
       return { success: false, errors };
     }
   };
-
-  if (!infoLoaded) return <h1>Loading...</h1>;
-
+  
   return (
     <BrowserRouter>
-      <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+      <UserContext.Provider value={{ currentUser, setCurrentUser, infoLoaded, setInfoLoaded }}>
         <NavigationApp logout={logout} />
         <RouterApp signup={signup} login={login} />
       </UserContext.Provider>
