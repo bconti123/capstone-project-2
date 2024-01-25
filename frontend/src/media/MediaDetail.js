@@ -1,5 +1,6 @@
 import React from "react";
 import { Header, Modal, Item, Image, Container } from "semantic-ui-react";
+import AverageRating from "./helper/rating";
 
 
 const MediaDetail = ({ closeModal, open, selectedItem }) => {
@@ -20,8 +21,7 @@ const MediaDetail = ({ closeModal, open, selectedItem }) => {
                   {selectedItem.title || selectedItem.name}
                 </Header>
                 <p>{selectedItem.overview}</p>
-                <p>vote average: {selectedItem.vote_average}</p>
-                <p>vote count: {selectedItem.vote_count}</p>
+                <AverageRating vote_average={selectedItem.vote_average}/>
                 <p>{selectedItem.id}</p>
               </Container>
             </Item.Content>
