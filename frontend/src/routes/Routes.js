@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Container } from "semantic-ui-react";
 
@@ -10,14 +10,24 @@ import PrivateRoute from "./PrivateRoute";
 import Movie from "../browse/Movie";
 import TVshow from "../browse/TVshow";
 import Profile from "../profile/Profile";
+import UserContext from "../auth/UserContext";
+import PublicRoute from "./PublicRoute";
 
 const RouterApp = ({ login, signup }) => {
+  const { infoLoaded } = useContext(UserContext);
+  if (!infoLoaded) return <h1>Loading...</h1>;
   return (
     <Container fluid>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route exact path="/login" element={<LoginForm login={login} />} />
-        <Route exact path="/signup" element={<SignupForm signup={signup} />} />
+        <Route element={<PublicRoute />}>
+          <Route exact path="/login" element={<LoginForm login={login} />} />
+          <Route
+            exact
+            path="/signup"
+            element={<SignupForm signup={signup} />}
+          />
+        </Route>
         <Route element={<PrivateRoute />}>
           <Route path="/movies" element={<Movie />} />
           <Route path="/tvshows" element={<TVshow />} />
