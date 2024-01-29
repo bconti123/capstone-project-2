@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = process.env.REACT_APP_URL
+const BASE_URL = process.env.REACT_APP_URL;
 
 /* API Class.
  *
@@ -70,7 +70,7 @@ class backendAPI {
   /* ================================ Add or Remove movie/TV in user list ==============================================================*/
   // POST /users/:username/movies/:movie_id
   static async addMovietoList(username, id) {
-    let res = await this.request(`users/${username}/movies/${id}`, "post");
+    let res = await this.request(`users/${username}/movies/${id}`, {}, "post");
     return res.added;
   }
 
@@ -82,7 +82,7 @@ class backendAPI {
 
   // POST /users/:username/tvshows/:tvshow_id
   static async addTVList(username, id) {
-    let res = await this.request(`users/${username}/tvshows/${id}`, "post");
+    let res = await this.request(`users/${username}/tvshows/${id}`, {}, "post");
     return res.added;
   }
 
