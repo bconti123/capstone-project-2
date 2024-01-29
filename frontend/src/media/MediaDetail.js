@@ -1,6 +1,7 @@
 import React from "react";
 import { Header, Modal, Item, Image, Container } from "semantic-ui-react";
 import AverageRating from "./helper/rating";
+import AddtoList from "./helper/AddtoList";
 
 
 const MediaDetail = ({ closeModal, open, selectedItem }) => {
@@ -23,6 +24,7 @@ const MediaDetail = ({ closeModal, open, selectedItem }) => {
                 <p>{selectedItem.overview}</p>
                 <AverageRating vote_average={selectedItem.vote_average}/>
                 <p>{selectedItem.id}</p>
+                <AddtoList selectedItem={selectedItem} />
               </Container>
             </Item.Content>
           </Item>
