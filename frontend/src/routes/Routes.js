@@ -12,6 +12,7 @@ import TVshow from "../browse/TVshow";
 import Profile from "../profile/Profile";
 import UserContext from "../auth/UserContext";
 import PublicRoute from "./PublicRoute";
+import UserList from "../profile/UserList";
 
 const RouterApp = ({ login, signup }) => {
   const { infoLoaded } = useContext(UserContext);
@@ -32,6 +33,7 @@ const RouterApp = ({ login, signup }) => {
           <Route path="/movies" element={<Movie />} />
           <Route path="/tvshows" element={<TVshow />} />
           <Route path="/edit-profile" element={<Profile />} />
+          <Route path="/mylist" element={<UserList />} />
         </Route>
         {/* Add more later */}
         <Route path="*" element={<h1>404! ERROR</h1>} />
