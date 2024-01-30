@@ -23,6 +23,9 @@ const NavigationApp = ({ logout }) => {
             <Menu.Item as={NavLink} to="/tvshows">
               TV Show
             </Menu.Item>
+            <Menu.Item as={NavLink} to="/mylist">
+              My List
+            </Menu.Item>
             <Menu.Item>
               <Dropdown
                 text={`Hello, ${
@@ -34,7 +37,9 @@ const NavigationApp = ({ logout }) => {
                   <Dropdown.Item as={Link} to="/edit-profile">
                     Edit Profile
                   </Dropdown.Item>
-                  <Dropdown.Item as={Link} to="/" onClick={logout}>Logout</Dropdown.Item>
+                  <Dropdown.Item as={Link} to="/" onClick={logout}>
+                    Logout
+                  </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </Menu.Item>
