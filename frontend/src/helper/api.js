@@ -106,6 +106,13 @@ class backendAPI {
     return result.movies || result.tvshows;
   }
 
+  // GET /:mediaType
+  static async getMediaFindAll(mediaType) {
+    console.debug("FindAll - mediaType: ", mediaType);
+    let result = await this.request(`${mediaType}`);
+    return result.movies || result.tvshows;
+  }
+
   // GET /:mediaType/:id
   static async getMediaDetail(mediaType, id) {
     console.debug("mediaType: ", mediaType, "id: ", id);
