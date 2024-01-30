@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Image, Item, Segment, Header, Modal } from "semantic-ui-react";
+import { Image, Segment, Header } from "semantic-ui-react";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -7,7 +7,7 @@ import Slider from "react-slick";
 import "./MediaItem.css";
 import MediaDetail from "./MediaDetail";
 
-const MediaItem = ({ media }) => {
+const MediaItem = ({ mediaType, media }) => {
   const settings = {
     slidesToShow: 7,
     slidesToScroll: 1,
@@ -94,7 +94,7 @@ const MediaItem = ({ media }) => {
           </div>
         ))}
       </Slider>
-      <MediaDetail closeModal={closeModal} open={open} selectedItem={selectedItem} />
+      <MediaDetail mediaType={mediaType} closeModal={closeModal} open={open} selectedItem={selectedItem} />
     </>
   );
 };
