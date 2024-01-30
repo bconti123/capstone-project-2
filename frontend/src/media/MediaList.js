@@ -23,7 +23,7 @@ const MediaList = ({ mediaType, filterType }) => {
 
   return (
     <Segment>
-      <MediaItem media={media} />
+      <MediaItem mediaType={mediaType} media={media} />
     </Segment>
   );
 };
