@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { GridColumn, Image} from "semantic-ui-react";
+import { GridColumn, Image } from "semantic-ui-react";
 import MediaDetail from "../media/MediaDetail";
 
-const MyListItem = ({ media }) => {
+const MyListItem = ({ mediaType, media }) => {
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -15,7 +15,6 @@ const MyListItem = ({ media }) => {
     setSelectedItem(null);
     setOpen(false);
   };
-
 
   return (
     <>
@@ -35,6 +34,7 @@ const MyListItem = ({ media }) => {
         />
       </GridColumn>
       <MediaDetail
+        mediaType={mediaType}
         closeModal={closeModal}
         open={open}
         selectedItem={selectedItem}

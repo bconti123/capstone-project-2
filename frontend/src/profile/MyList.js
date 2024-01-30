@@ -34,7 +34,7 @@ const MyList = ({ mediaType }) => {
     };
     filteredUserList();
   }, [media, currentUser, mediaType]);
-  if (userList.length === 0) return <p>You don't have {mediaType === "movies" ? "Movie" : "TV Show" } list</p>
+  if (userList?.length === 0) return <p>You don't have {mediaType === "movies" ? "Movie" : "TV Show" } list</p>
   return (
     <Grid columns={6}>
       <GridRow centered>
@@ -44,7 +44,7 @@ const MyList = ({ mediaType }) => {
       </GridRow>
       <GridRow>
         {userList?.map((item) => (
-          <MyListItem media={item} />
+          <MyListItem mediaType={mediaType} media={item} />
         ))}
       </GridRow>
     </Grid>
