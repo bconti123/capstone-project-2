@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { GridColumn, Image } from "semantic-ui-react";
+import { Image } from "semantic-ui-react";
 import MediaDetail from "../media/MediaDetail";
 
 const MyListItem = ({ mediaType, media }) => {
@@ -18,8 +18,8 @@ const MyListItem = ({ mediaType, media }) => {
 
   return (
     <>
-      <GridColumn key={media.id}>
         <Image
+          key={media.id}
           src={`https://image.tmdb.org/t/p/w200/${media.poster_path}`}
           bordered
           onClick={(e) => {
@@ -32,7 +32,6 @@ const MyListItem = ({ mediaType, media }) => {
             cursor: "pointer",
           }}
         />
-      </GridColumn>
       <MediaDetail
         mediaType={mediaType}
         closeModal={closeModal}

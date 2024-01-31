@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Grid, GridRow, Header } from "semantic-ui-react";
+import { Container, Grid, GridRow, Header, Segment } from "semantic-ui-react";
 import UserContext from "../auth/UserContext";
 import backendAPI from "../helper/api";
 import MyListItem from "./MyListItem";
@@ -34,20 +34,31 @@ const MyList = ({ mediaType }) => {
     };
     filteredUserList();
   }, [media, currentUser, mediaType]);
-  if (userList?.length === 0) return <p>You don't have {mediaType === "movies" ? "Movie" : "TV Show" } list</p>
+
   return (
-    <Grid columns={6}>
-      <GridRow centered>
+    <Container fluid>
+      <Segment>
         <Header as="h3" textAlign="center">
           {mediaType === "movies" ? "Movies" : "TV Shows"}
         </Header>
-      </GridRow>
-      <GridRow>
-        {userList?.map((item) => (
-          <MyListItem mediaType={mediaType} media={item} />
-        ))}
-      </GridRow>
-    </Grid>
+        <Grid textAlign="center" verticalAlign="middle">
+          {userList?.length !== 0 ? (
+            <GridRow>
+              {userList?.map((item) => (
+                <MyListItem mediaType={mediaType} media={item} />
+              ))}
+            </GridRow>
+          ) : (
+            <GridRow>
+              <Header as="h1" textAlign="center">
+                You don't have {mediaType === "movies" ? "Movie" : "TV Show"}{" "}
+                list
+              </Header>
+            </GridRow>
+          )}
+        </Grid>
+      </Segment>
+    </Container>
   );
 };
 
