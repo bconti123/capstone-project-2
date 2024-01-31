@@ -76,7 +76,7 @@ class backendAPI {
 
   // DELETE /users/:username/movies/:movie_id
   static async removeMovieList(username, id) {
-    let res = await this.request(`users/${username}/movies/${id}`, "delete");
+    let res = await this.request(`users/${username}/movies/${id}`, {}, "delete");
     return res.deleted;
   }
 
@@ -88,7 +88,7 @@ class backendAPI {
 
   // DELETE /users/:username/tvshows/:tvshow_id
   static async removeTVList(username, id) {
-    await this.request(`users/${username}/tvshows/${id}`, "delete");
+    await this.request(`users/${username}/tvshows/${id}`, {}, "delete");
   }
 
   /* ======================================= Media Route ========================================================================*/
