@@ -11,6 +11,8 @@ import AverageRating from "./helper/rating";
 import AddtoList from "./helper/AddtoList";
 import mediaAPI from "../helper/tmdb-api";
 import VideoURL from "./helper/video";
+import CountryCertication from "./helper/certifcation";
+import Genres from "./helper/genres";
 
 const MediaDetail = ({
   mediaType,
@@ -56,7 +58,11 @@ const MediaDetail = ({
               <Container text>
                 <Header as="h1" textAlign="center">
                   {data?.title || data?.name}
+                  <CountryCertication data={data} />
                 </Header>
+
+                <p>Release Year: {data?.release_date.split("-")[0]}</p>
+                <Genres data={data} />
                 <p>{data?.overview}</p>
                 <AverageRating vote_average={data?.vote_average} />
                 <AddtoList selectedItem={selectedItem} />
