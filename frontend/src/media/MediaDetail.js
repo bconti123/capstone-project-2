@@ -6,6 +6,8 @@ import {
   Image,
   Container,
   Divider,
+  Segment,
+  Label,
 } from "semantic-ui-react";
 import AverageRating from "./helper/rating";
 import AddtoList from "./helper/AddtoList";
@@ -13,6 +15,7 @@ import mediaAPI from "../helper/tmdb-api";
 import VideoURL from "./helper/video";
 import CountryCertication from "./helper/certifcation";
 import Genres from "./helper/genres";
+import ReleaseorAir from "./helper/ReleaseorAir";
 
 const MediaDetail = ({
   mediaType,
@@ -61,7 +64,7 @@ const MediaDetail = ({
                   <CountryCertication data={data} />
                 </Header>
 
-                <p>Release Year: {data?.release_date.split("-")[0]}</p>
+                <ReleaseorAir data={data} />
                 <Genres data={data} />
                 <p>{data?.overview}</p>
                 <AverageRating vote_average={data?.vote_average} />
@@ -74,7 +77,9 @@ const MediaDetail = ({
             <Divider />
             <Item.Content>
               <Container>
-                <VideoURL key={videoData[0]?.key} url={videoData[0]?.key} />
+                {data?.title && (
+                  <VideoURL key={videoData[0]?.key} url={videoData[0]?.key} />
+                )}
               </Container>
             </Item.Content>
           </Item>
