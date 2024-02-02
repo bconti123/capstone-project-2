@@ -4,7 +4,6 @@ import { Dropdown, Menu } from "semantic-ui-react";
 import UserContext from "../auth/UserContext";
 const NavigationApp = ({ logout }) => {
   const { currentUser } = useContext(UserContext);
-  console.debug("Navigation", "currentUsers= ", currentUser);
 
   return (
     <Menu pointing secondary>
