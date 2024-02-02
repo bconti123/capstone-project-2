@@ -19,15 +19,27 @@ class mediaAPI {
 
   // Detail, Video, and Release Date
   static async MediaInfo(mediaType, id) {
+    let dates = mediaType === "movie" ? "release_dates" : "first_air_date";
     try {
       return await this.APIrequest(
-        `${mediaType}/${id}?api_key=${REACT_APP_API_KEY}&append_to_response=videos,release_dates`
+        `${mediaType}/${id}?api_key=${REACT_APP_API_KEY}&append_to_response=videos,${dates}`
       );
     } catch (e) {
       console.error(
         `Error fetching ${mediaType === "movie" ? "movies" : "tv series"}`,
         e
       );
+      throw e;
+    }
+  }
+
+  // TV Content Rating
+  static async TVContent(id) {
+    try {
+      return (await this.APIrequest(`tv/${id}/content_ratings?api_key=${REACT_APP_API_KEY}`)).data.results;
+    } catch (e) {
+      console.error(`Error fetching tv series`, e);
+
       throw e;
     }
   }
