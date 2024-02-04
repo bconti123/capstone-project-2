@@ -16,6 +16,7 @@ import VideoURL from "./helper/video";
 import CountryCertication from "./helper/certifcation";
 import Genres from "./helper/genres";
 import ReleaseorAir from "./helper/ReleaseorAir";
+import backendAPI from "../helper/api";
 
 const MediaDetail = ({
   mediaType,
@@ -28,18 +29,39 @@ const MediaDetail = ({
   const [videoData, setVideoData] = useState(null);
   let type = mediaType === "movies" ? "movie" : "tv";
 
+  const [add, setAdd] = useState(false);
+  const [del, setDel] = useState(false);
+
   useEffect(() => {
-    if (open) {
-      const GetDetail = async (mediaType, id) => {
-        let detail = await mediaAPI.MediaInfo(mediaType, id);
-        setData(detail.data);
-        setVideoData(detail.data.videos.results);
-        console.debug("data: ", data);
-        console.debug("videos: ", videoData);
-      };
+    const GetDetail = async (mediaType, id) => {
+      let detail = await mediaAPI.MediaInfo(mediaType, id);
+      setData(detail.data);
+      setVideoData(detail.data.videos.results);
+      console.debug("data: ", data);
+      console.debug("videos: ", videoData);
+      setAdd(true);
+      console.debug("add: ", add);
+    };
+    const RemoveDetail = async (mediaType, id) => {
+      try {
+        if (mediaType === "movie") {
+          await backendAPI.removeMovieList(id);
+        } else {
+          await backendAPI.removeTVList(id);
+        }
+        setDel(false);
+      } catch (e) {
+        console.debug("An error occurred: ", e);
+      }
+    };
+
+    if (open && !del) {
       GetDetail(type, selectedItem.id);
     }
-  }, [type, open, selectedItem]);
+    if (!open && del) {
+      RemoveDetail(type, selectedItem.id);
+    }
+  }, [type, open, del, selectedItem]);
 
   return (
     <Modal
@@ -68,7 +90,13 @@ const MediaDetail = ({
                 <Genres data={data} />
                 <p>{data?.overview}</p>
                 <AverageRating vote_average={data?.vote_average} />
-                <AddtoList selectedItem={selectedItem} />
+                <AddtoList
+                  selectedItem={selectedItem}
+                  add={add}
+                  setAdd={setAdd}
+                  del={del}
+                  setDel={setDel}
+                />
               </Container>
             </Item.Content>
             <Header as="h1" textAlign="center">
