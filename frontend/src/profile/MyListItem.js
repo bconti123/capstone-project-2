@@ -16,6 +16,8 @@ const MyListItem = ({ mediaType, media }) => {
     setOpen(false);
   };
 
+  
+
   return (
     <>
         <Image
