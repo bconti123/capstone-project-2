@@ -3,7 +3,7 @@ import { Button } from "semantic-ui-react";
 import UserContext from "../../auth/UserContext";
 import backendAPI from "../../helper/api";
 
-const AddtoList = ({ selectedItem }) => {
+const AddtoList = ({ selectedItem, add, setAdd, del, setDel }) => {
   const { currentUser, setCurrentUser } = useContext(UserContext);
 
   let mediaData = {
@@ -48,30 +48,74 @@ const AddtoList = ({ selectedItem }) => {
     GetDetail();
   }, [mediaType, selectedItem.id]);
 
-  const [add, setAdd] = useState(media_id);
+  // Const [add, setAdd] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.debug("handleSubmit clicked", e);
+    console.debug("add: ", add, "del: ", del);
     if (selectedItem.title) {
-      console.log(currentUser.username, selectedItem.id);
-      await backendAPI.addMovietoList(currentUser.username, selectedItem.id);
-      setCurrentUser((prevUser) => ({
-        ...prevUser,
-        movie_list: [...prevUser.movie_list, selectedItem.id],
-      }));
-      setAdd(true);
+      try {
+        console.log(currentUser.username, selectedItem.id);
+        await backendAPI.addMovietoList(currentUser.username, selectedItem.id);
+        setCurrentUser((prevUser) => ({
+          ...prevUser,
+          movie_list: [...prevUser.movie_list, selectedItem.id],
+        }));
+        setAdd(true);
+        setDel(false);
+      } catch (e) {
+        console.debug("An error occurred:", e);
+      }
     } else if (selectedItem.name) {
-      await backendAPI.addTVList(currentUser.username, selectedItem.id);
-      setCurrentUser((prevUser) => ({
-        ...prevUser,
-        tvshow_list: [...prevUser.tvshow_list, selectedItem.id],
-      }));
-      setAdd(true);
+      try {
+        await backendAPI.addTVList(currentUser.username, selectedItem.id);
+        setCurrentUser((prevUser) => ({
+          ...prevUser,
+          tvshow_list: [...prevUser.tvshow_list, selectedItem.id],
+        }));
+        setAdd(true);
+        setDel(false);
+      } catch (e) {
+        console.debug("An error occurred:", e);
+      }
+    }
+    console.debug("After clicked, add: ", add, "del: ", del);
+  };
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    console.debug("Click", e);
+    console.debug("add: ", add, "del: ", del);
+    try {
+      setAdd(false);
+      if (selectedItem.title) {
+        await backendAPI.removeMovieList(currentUser.username, selectedItem.id);
+        setCurrentUser((prevUser) => ({
+          ...prevUser,
+          movie_list: prevUser.movie_list.filter(
+            (id) => id !== selectedItem.id
+          ),
+        }));
+      } else if (selectedItem.name) {
+        await backendAPI.removeTVList(currentUser.username, selectedItem.id);
+        setCurrentUser((prevUser) => ({
+          ...prevUser,
+          tvshow_list: prevUser.tvshow_list.filter(
+            (id) => id !== selectedItem.id
+          ),
+        }));
+      }
+      setDel(false);
+      console.debug("After clicked, add: ", add, "del: ", del);
+    } catch (err) {
+      console.debug("An error occurred:", err);
     }
   };
 
   return (
-    <Button onClick={handleSubmit} disabled={add}>
-      {add ? "Already in the list" : "Add to your List"}
+    <Button onClick={!add ? handleSubmit : handleDelete}>
+      {add ? "Remove from the list" : "Add to your List"}
     </Button>
   );
 };
