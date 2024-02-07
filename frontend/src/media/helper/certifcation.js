@@ -9,9 +9,7 @@ const CountryCertication = ({ data }) => {
     const release_date = countryCode.find((item) => item.iso_3166_1 === "US");
     console.debug(countryCode);
     // Check if release_date is not undefined before accessing its properties
-    certData = release_date
-      ? release_date.release_dates[0].certification
-      : "";
+    certData = release_date ? release_date.release_dates[0].certification : "";
     console.debug(certData);
   }
   const [content, setContent] = useState(null);
@@ -21,7 +19,7 @@ const CountryCertication = ({ data }) => {
         try {
           let TVdata = await mediaAPI.TVContent(data.id);
           setContent(TVdata);
-          console.debug(content);
+          console.debug("content: ", content);
         } catch (e) {
           console.error("An error occurred:", e);
         }
@@ -29,8 +27,11 @@ const CountryCertication = ({ data }) => {
       getContent();
     }
   }, [data]);
-  if (data.name) {
-    certData = content?.find((item) => item.iso_3166_1 === "US").rating
+  if (data.name && content && content.length > 0) {
+    certData = content?.find((item) => item.iso_3166_1 === "US").rating;
+    console.debug(content);
+  } else {
+    certData = "N/A"
   }
 
   return (
