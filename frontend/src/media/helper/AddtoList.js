@@ -3,7 +3,7 @@ import { Button } from "semantic-ui-react";
 import UserContext from "../../auth/UserContext";
 import backendAPI from "../../helper/api";
 
-const AddtoList = ({ selectedItem, add, setAdd, del, setDel }) => {
+const AddtoList = ({ selectedItem, del, setDel }) => {
   const { currentUser, setCurrentUser } = useContext(UserContext);
 
   let mediaData = {
@@ -35,6 +35,9 @@ const AddtoList = ({ selectedItem, add, setAdd, del, setDel }) => {
       console.error("An error occurred:", error);
     }
   };
+  const [add, setAdd] = useState(true);
+
+  console.debug("Open Modals add", add, "del", del);
 
   useEffect(() => {
     const GetDetail = async () => {
@@ -46,9 +49,16 @@ const AddtoList = ({ selectedItem, add, setAdd, del, setDel }) => {
       }
     };
     GetDetail();
+    const isInList =
+      currentUser.movie_list.find((id) => id === selectedItem.id) ||
+      currentUser.tvshow_list.find((id) => id === selectedItem.id);
+    console.debug("Is in List?: ", isInList);
+    if (isInList) {
+      setAdd(true);
+    } else {
+      setAdd(false);
+    }
   }, [mediaType, selectedItem.id]);
-
-  // Const [add, setAdd] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -64,6 +74,7 @@ const AddtoList = ({ selectedItem, add, setAdd, del, setDel }) => {
         }));
         setAdd(true);
         setDel(false);
+        console.debug("After clicked, add: ", add, "del: ", del);
       } catch (e) {
         console.debug("An error occurred:", e);
       }
@@ -76,6 +87,7 @@ const AddtoList = ({ selectedItem, add, setAdd, del, setDel }) => {
         }));
         setAdd(true);
         setDel(false);
+        console.debug("After clicked, add: ", add, "del: ", del);
       } catch (e) {
         console.debug("An error occurred:", e);
       }
@@ -87,8 +99,9 @@ const AddtoList = ({ selectedItem, add, setAdd, del, setDel }) => {
     e.preventDefault();
     console.debug("Click", e);
     console.debug("add: ", add, "del: ", del);
+    setDel(false);
+    setAdd(false);
     try {
-      setAdd(false);
       if (selectedItem.title) {
         await backendAPI.removeMovieList(currentUser.username, selectedItem.id);
         setCurrentUser((prevUser) => ({
@@ -106,7 +119,7 @@ const AddtoList = ({ selectedItem, add, setAdd, del, setDel }) => {
           ),
         }));
       }
-      setDel(false);
+
       console.debug("After clicked, add: ", add, "del: ", del);
     } catch (err) {
       console.debug("An error occurred:", err);
