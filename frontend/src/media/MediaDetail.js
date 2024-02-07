@@ -29,7 +29,7 @@ const MediaDetail = ({
   const [videoData, setVideoData] = useState(null);
   let type = mediaType === "movies" ? "movie" : "tv";
 
-  const [add, setAdd] = useState(false);
+  
   const [del, setDel] = useState(false);
 
   useEffect(() => {
@@ -39,8 +39,6 @@ const MediaDetail = ({
       setVideoData(detail.data.videos.results);
       console.debug("data: ", data);
       console.debug("videos: ", videoData);
-      setAdd(true);
-      console.debug("add: ", add);
     };
     const RemoveDetail = async (mediaType, id) => {
       try {
@@ -49,13 +47,12 @@ const MediaDetail = ({
         } else {
           await backendAPI.removeTVList(id);
         }
-        setDel(false);
       } catch (e) {
         console.debug("An error occurred: ", e);
       }
     };
 
-    if (open && !del) {
+    if (open) {
       GetDetail(type, selectedItem.id);
     }
     if (!open && del) {
@@ -92,8 +89,6 @@ const MediaDetail = ({
                 <AverageRating vote_average={data?.vote_average} />
                 <AddtoList
                   selectedItem={selectedItem}
-                  add={add}
-                  setAdd={setAdd}
                   del={del}
                   setDel={setDel}
                 />
