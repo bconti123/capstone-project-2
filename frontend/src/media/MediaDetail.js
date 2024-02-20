@@ -17,6 +17,7 @@ import CountryCertication from "./helper/certifcation";
 import Genres from "./helper/genres";
 import ReleaseorAir from "./helper/ReleaseorAir";
 import backendAPI from "../helper/api";
+import Season from "../TV_helper/season";
 
 const MediaDetail = ({
   mediaType,
@@ -92,6 +93,11 @@ const MediaDetail = ({
                   del={del}
                   setDel={setDel}
                 />
+                {data.seasons && 
+                (<>
+                <Header>Season Number: {data.seasons.length}</Header>
+                <Season data={data} />
+                </>)}
               </Container>
             </Item.Content>
             <Header as="h1" textAlign="center">
