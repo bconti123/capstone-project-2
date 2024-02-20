@@ -43,6 +43,25 @@ class mediaAPI {
       throw e;
     }
   }
+
+  // TV Season Detail
+  static async TVSeason(id, season_number) {
+    try {
+      return (await this.APIrequest(`tv/${id}/season/${season_number}?api_key=${REACT_APP_API_KEY}`)).data;
+    } catch (e) {
+      console.error(`Error fetching tv season`);
+      throw e;
+    }
+  }
+  // TV Episode Detail
+  static async TVEpisode(id, season_number, episode_number) {
+    try {
+      return (await this.APIrequest(`tv/${id}/season/${season_number}/episode/${episode_number}?api_key=${REACT_APP_API_KEY}&append_to_response=videos`)).data;
+    } catch (e) {
+      console.error(`Error fetching tv season`);
+      throw e;
+    }
+  }
 }
 
 export default mediaAPI;
