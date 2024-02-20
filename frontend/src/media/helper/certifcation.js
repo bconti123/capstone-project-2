@@ -4,6 +4,7 @@ import mediaAPI from "../../helper/tmdb-api";
 
 const CountryCertication = ({ data }) => {
   let certData;
+  
   if (data.title) {
     const countryCode = data.release_dates.results;
     const release_date = countryCode.find((item) => item.iso_3166_1 === "US");
@@ -30,7 +31,7 @@ const CountryCertication = ({ data }) => {
   if (data.name && content && content.length > 0) {
     certData = content?.find((item) => item.iso_3166_1 === "US").rating;
     console.debug(content);
-  } else {
+  } else if (!data.name && !data.title) {
     certData = "N/A"
   }
 
