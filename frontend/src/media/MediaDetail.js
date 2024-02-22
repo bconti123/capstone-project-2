@@ -6,8 +6,6 @@ import {
   Image,
   Container,
   Divider,
-  Segment,
-  Label,
 } from "semantic-ui-react";
 import AverageRating from "./helper/rating";
 import AddtoList from "./helper/AddtoList";
@@ -17,14 +15,14 @@ import CountryCertication from "./helper/certifcation";
 import Genres from "./helper/genres";
 import ReleaseorAir from "./helper/ReleaseorAir";
 import backendAPI from "../helper/api";
-import Season from "../TV_helper/season";
+import Season from "./TV_helper/season";
+import Episodes from "./TV_helper/episode";
 
 const MediaDetail = ({
   mediaType,
   closeModal,
   open,
-  selectedItem,
-  setSelectedItem,
+  selectedItem
 }) => {
   const [data, setData] = useState(null);
   const [videoData, setVideoData] = useState(null);
@@ -38,8 +36,9 @@ const MediaDetail = ({
       let detail = await mediaAPI.MediaInfo(mediaType, id);
       setData(detail.data);
       setVideoData(detail.data.videos.results);
-      console.debug("data: ", data);
-      console.debug("videos: ", videoData);
+      // console.debug("data: ", data);
+      // console.debug("videos: ", videoData);
+      console.debug("season: ", data?.seasons)
     };
     const RemoveDetail = async (mediaType, id) => {
       try {
@@ -93,11 +92,21 @@ const MediaDetail = ({
                   del={del}
                   setDel={setDel}
                 />
-                {data.seasons && 
+                {data?.seasons && 
                 (<>
-                <Header>Season Number: {data.seasons.length}</Header>
-                <Season data={data} />
+                  <Header>Season Number: {data?.seasons.length}</Header>
+                  <Season data={data} />
+                  {data?.seasons.map((season) => (
+                    <Episodes
+                      key={season.id}
+                      id={data.id}
+                      season_number={season.season_number}
+                      episodes={season.episodes}
+                    />
+                    // <Header>{season.name}</Header>
+                  ))}
                 </>)}
+
               </Container>
             </Item.Content>
             <Header as="h1" textAlign="center">
