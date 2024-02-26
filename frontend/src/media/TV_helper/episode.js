@@ -3,42 +3,42 @@ import { List, Header, Divider, Item, Container } from "semantic-ui-react";
 import mediaAPI from "../../helper/tmdb-api";
 import VideoURL from "../helper/video";
 
-const Episode = ({ id, season_number, episode_number }) => {
-  const [episodeDetail, setEpisodeDetail] = useState(null);
-  useEffect(() => {
-    const fetchEpisodeData = async () => {
-      try {
-        const data = await mediaAPI.TVEpisode(
-          id,
-          season_number,
-          episode_number
-        );
-        setEpisodeDetail(data);
-      } catch (error) {
-        console.error("Error fetching episode data", error);
-      }
-    };
+// const Episode = ({ id, season_number, episode_number }) => {
+//   const [episodeDetail, setEpisodeDetail] = useState(null);
+//   useEffect(() => {
+//     const fetchEpisodeData = async () => {
+//       try {
+//         const data = await mediaAPI.TVEpisode(
+//           id,
+//           season_number,
+//           episode_number
+//         );
+//         setEpisodeDetail(data);
+//       } catch (error) {
+//         console.error("Error fetching episode data", error);
+//       }
+//     };
 
-    fetchEpisodeData();
-  }, [id, season_number, episode_number]);
+//     fetchEpisodeData();
+//   }, [id, season_number, episode_number]);
 
-  return (
-    <>
-      {episodeDetail && (
-        <List.Item>
-          <List.Icon name="tv" size="large" verticalAlign="middle" />
-          <List.Content>
-            <List.Header>{episodeDetail?.name}</List.Header>
-            <List.Description>
-              Episode {episodeDetail?.episode_number} | Air Date:{" "}
-              {episodeDetail?.air_date || "Not available"}
-            </List.Description>
-          </List.Content>
-        </List.Item>
-      )}
-    </>
-  );
-};
+//   return (
+//     <>
+//       {episodeDetail && (
+//         <List.Item>
+//           <List.Icon name="tv" size="large" verticalAlign="middle" />
+//           <List.Content>
+//             <List.Header>{episodeDetail?.name}</List.Header>
+//             <List.Description>
+//               Episode {episodeDetail?.episode_number} | Air Date:{" "}
+//               {episodeDetail?.air_date || "Not available"}
+//             </List.Description>
+//           </List.Content>
+//         </List.Item>
+//       )}
+//     </>
+//   );
+// };
 
 const Episodes = ({ id, season_number, episodes }) => {
   const [episodeData, setEpisodeData] = useState(null);
@@ -54,18 +54,27 @@ const Episodes = ({ id, season_number, episodes }) => {
     };
     fetchEpisodeData();
   }, [id, season_number]);
-
   return (
     <>
       <List divided relaxed>
         {episodeData?.episodes.map((episode) => (
           // Return the Episode component here
-          <Episode
-            key={episode.id}
-            id={id}
-            season_number={season_number}
-            episode_number={episode.episode_number}
-          />
+          // <Episode
+          //   key={episode.id}
+          //   id={id}
+          //   season_number={season_number}
+          //   episode_number={episode.episode_number}
+          // />
+          <List.Item>
+            <List.Icon name="tv" size="large" verticalAlign="middle" />
+            <List.Content>
+              <List.Header>{episode.name}</List.Header>
+              <List.Description>
+                Episode {episode.episode_number} | Air Date:{" "}
+                {episode.air_date || "Not available"}
+              </List.Description>
+            </List.Content>
+          </List.Item>
         ))}
       </List>
 
