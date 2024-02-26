@@ -16,19 +16,12 @@ import Genres from "./helper/genres";
 import ReleaseorAir from "./helper/ReleaseorAir";
 import backendAPI from "../helper/api";
 import Season from "./TV_helper/season";
-import Episodes from "./TV_helper/episode";
 
-const MediaDetail = ({
-  mediaType,
-  closeModal,
-  open,
-  selectedItem
-}) => {
+const MediaDetail = ({ mediaType, closeModal, open, selectedItem }) => {
   const [data, setData] = useState(null);
   const [videoData, setVideoData] = useState(null);
   let type = mediaType === "movies" ? "movie" : "tv";
 
-  
   const [del, setDel] = useState(false);
 
   useEffect(() => {
@@ -38,7 +31,7 @@ const MediaDetail = ({
       setVideoData(detail.data.videos.results);
       // console.debug("data: ", data);
       // console.debug("videos: ", videoData);
-      console.debug("season: ", data?.seasons)
+      // console.debug("season: ", data?.seasons);
     };
     const RemoveDetail = async (mediaType, id) => {
       try {
@@ -92,34 +85,31 @@ const MediaDetail = ({
                   del={del}
                   setDel={setDel}
                 />
-                {data?.seasons && 
-                (<>
-                  <Header>Season Number: {data?.seasons.length}</Header>
-                  <Season data={data} />
-                  {data?.seasons.map((season) => (
-                    <Episodes
-                      key={season.id}
-                      id={data.id}
-                      season_number={season.season_number}
-                      episodes={season.episodes}
-                    />
-                    // <Header>{season.name}</Header>
-                  ))}
-                </>)}
-
-              </Container>
-            </Item.Content>
-            <Header as="h1" textAlign="center">
-              Video
-            </Header>
-            <Divider />
-            <Item.Content>
-              <Container>
-                {data?.title && (
-                  <VideoURL key={videoData[0]?.key} url={videoData[0]?.key} />
+                {data?.seasons && (
+                  <>
+                    <Season data={data} />
+                  </>
                 )}
               </Container>
             </Item.Content>
+            {data?.title && (
+              <>
+                <Header as="h1" textAlign="center">
+                  Video
+                </Header>
+                <Divider />
+                <Item.Content>
+                  <Container>
+                    {data?.title && (
+                      <VideoURL
+                        key={videoData[0]?.key}
+                        url={videoData[0]?.key}
+                      />
+                    )}
+                  </Container>
+                </Item.Content>
+              </>
+            )}
           </Item>
         )}
       </Modal.Content>
