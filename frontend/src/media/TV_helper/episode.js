@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { List, Header } from "semantic-ui-react";
+import { List, Header, Divider, Item, Container } from "semantic-ui-react";
 import mediaAPI from "../../helper/tmdb-api";
+import VideoURL from "../helper/video";
 
 const Episode = ({ id, season_number, episode_number }) => {
   const [episodeDetail, setEpisodeDetail] = useState(null);
   useEffect(() => {
     const fetchEpisodeData = async () => {
       try {
-        const data = await mediaAPI.TVEpisode(id, season_number, episode_number);
-        setEpisodeDetail(data)
-        console.debug("ep details: ", episodeDetail)
+        const data = await mediaAPI.TVEpisode(
+          id,
+          season_number,
+          episode_number
+        );
+        setEpisodeDetail(data);
       } catch (error) {
         console.error("Error fetching episode data", error);
       }
     };
 
     fetchEpisodeData();
-  }, [id, season_number]);
+  }, [id, season_number, episode_number]);
 
   return (
     <>
@@ -43,19 +47,16 @@ const Episodes = ({ id, season_number, episodes }) => {
       try {
         const data = await mediaAPI.TVSeason(id, season_number);
         setEpisodeData(data);
-        console.debug("eps: ", episodeData)
+        // console.debug(episodeData);
       } catch (error) {
         console.error("Error fetching episode data", error);
       }
     };
-
     fetchEpisodeData();
   }, [id, season_number]);
-  console.debug("eps: ", episodeData)
-  console.debug("id: ", id, "season number: ", season_number, "eps: ", episodes)
+
   return (
     <>
-      <Header as="h2">Season {season_number}</Header>
       <List divided relaxed>
         {episodeData?.episodes.map((episode) => (
           // Return the Episode component here
@@ -67,6 +68,25 @@ const Episodes = ({ id, season_number, episodes }) => {
           />
         ))}
       </List>
+
+      <Header as="h1" textAlign="center">
+        Video
+      </Header>
+      <Divider />
+      <Item.Content>
+        <Container>
+          {episodeData?.videos.results.length > 0 ? (
+            <>
+              <VideoURL
+                key={episodeData?.videos.results[0].key}
+                url={episodeData?.videos.results[0].key}
+              />
+            </>
+          ) : (
+            <Header textAlign="center">No Video Avaliable</Header>
+          )}
+        </Container>
+      </Item.Content>
     </>
   );
 };
