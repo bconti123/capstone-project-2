@@ -1,7 +1,3 @@
-# Backend - Never touch it
-backend/
-/backend
-
 # Logs
 logs
 *.log

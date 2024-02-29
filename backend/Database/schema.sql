@@ -41,11 +41,43 @@ CREATE TABLE episodes (
 CREATE TABLE movie_list (
     username VARCHAR(25) REFERENCES users(username) ON DELETE CASCADE,
     movie_id INTEGER REFERENCES movies(id) ON DELETE CASCADE,
+    watched BOOLEAN DEFAULT FALSE,
+    add_to_watchlist BOOLEAN DEFAULT FALSE,
+    must_watch_it BOOLEAN DEFAULT FALSE,
+    never_watch_it_again BOOLEAN DEFAULT FALSE,
     PRIMARY KEY (username, movie_id)
 );
 
 CREATE TABLE tv_list (
     username VARCHAR(25) REFERENCES users(username) ON DELETE CASCADE,
     tvshow_id INTEGER REFERENCES tv_shows(id) ON DELETE CASCADE,
+    watched BOOLEAN DEFAULT FALSE,
+    add_to_watchlist BOOLEAN DEFAULT FALSE,
+    must_watch_it BOOLEAN DEFAULT FALSE,
+    never_watch_it_again BOOLEAN DEFAULT FALSE,
     PRIMARY KEY (username, tvshow_id)
 );
+
+-- CREATE TABLE must_watch_movies (
+--     username VARCHAR(25) REFERENCES users(username) ON DELETE CASCADE,
+--     movie_id INTEGER REFERENCES movies(id) ON DELETE CASCADE,
+--     PRIMARY KEY (username, movie_id)
+-- );
+
+-- CREATE TABLE must_watch_tv (
+--     username VARCHAR(25) REFERENCES users(username) ON DELETE CASCADE,
+--     tvshow_id INTEGER REFERENCES tv_shows(id) ON DELETE CASCADE,
+--     PRIMARY KEY (username, tvshow_id)
+-- );
+
+-- CREATE TABLE never_watch_movies (
+--     username VARCHAR(25) REFERENCES users(username) ON DELETE CASCADE,
+--     movie_id INTEGER REFERENCES movies(id) ON DELETE CASCADE,
+--     PRIMARY KEY (username, movie_id)
+-- );
+
+-- CREATE TABLE never_watch_tv (
+--     username VARCHAR(25) REFERENCES users(username) ON DELETE CASCADE,
+--     tvshow_id INTEGER REFERENCES tv_shows(id) ON DELETE CASCADE,
+--     PRIMARY KEY (username, tvshow_id)
+-- );
