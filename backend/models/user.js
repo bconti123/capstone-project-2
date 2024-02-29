@@ -219,6 +219,27 @@ class User {
       [username, movie_id]
     );
   }
+  // update movie from user's list
+  static async must_watch_movie(username, movie_id) {
+    const preCheck = await db.query(
+      `SELECT username, movie_id
+       FROM movie_list
+       WHERE username = $1
+       AND movie_id = $2`,
+      [username, movie_id]
+    );
+    const movie = preCheck.rows[0];
+
+    if (!movie) throw new NotFoundError(`No movie found: ${movie_id}`);
+
+    await db.query(
+     `UPDATE movie_list
+      SET must_watch_it = NOT must_watch_it
+      WHERE username = $2
+      AND movie_id = $3`,
+      [username, movie_id]
+    );
+  }
   // add tv show to user's favorite list
   static async add_tv(username, tvshow_id) {
     const preCheck = await db.query(
