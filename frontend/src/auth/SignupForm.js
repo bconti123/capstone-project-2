@@ -20,9 +20,6 @@ const SignupForm = ({ signup }) => {
   });
   const [formErrors, setFormErrors] = useState([]);
 
-  const handleChange = (evt, { name, value }) => {
-    setFormData({ ...formData, [name]: value });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,9 +30,14 @@ const SignupForm = ({ signup }) => {
       navigate("/");
     } else {
       setFormErrors(result.errors);
-      console.debug(formErrors)
+      console.debug(formErrors);
     }
   };
+
+  const handleChange = (evt, { name, value }) => {
+    setFormData({ ...formData, [name]: value });
+  };
+
   return (
     <Grid textAlign="center" style={{ height: "75vh" }} verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>

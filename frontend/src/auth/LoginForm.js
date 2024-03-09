@@ -47,6 +47,7 @@ const LoginForm = ({ login }) => {
               name="password"
               value={formData.password}
               onChange={handleChange}
+              autoComplete="current-password"
             />
             <Button type="submit" primary fluid>
               Login
