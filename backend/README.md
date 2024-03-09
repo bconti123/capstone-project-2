@@ -12,6 +12,9 @@
     - GET /users/:username/movies
     - GET /users/:username/tvshows
 
+### Update user's list for watched, must watch it, and never watch it again.
+    - UPDATE /users/:username/:mediaType/:media_id/:action
+
 ### Add movie/tv show to user's favorite list
     - POST /users/:username/movies/:movie_id
     - POST /users/:username/tvshows/:tvshow_id
