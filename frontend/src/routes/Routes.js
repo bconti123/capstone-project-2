@@ -13,10 +13,11 @@ import Profile from "../profile/Profile";
 import UserContext from "../auth/UserContext";
 import PublicRoute from "./PublicRoute";
 import UserList from "../profile/UserList";
+import LoadingSpin from "../common/Loading";
 
 const RouterApp = ({ login, signup }) => {
   const { infoLoaded } = useContext(UserContext);
-  if (!infoLoaded) return <h1>Loading...</h1>;
+  if (!infoLoaded) return <LoadingSpin />;
   return (
     <Container fluid>
       <Routes>
