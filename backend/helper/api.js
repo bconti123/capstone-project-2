@@ -38,6 +38,20 @@ class mediaAPI {
       throw e;
     }
   }
+
+  static async MediaTypeTrending(mediaType, Day) {
+    try {
+      return await this.APIrequest(`trending/${mediaType}/${Day}`);
+    } catch (e) {
+      console.error(
+        `Error fetching now playing ${(mediaType === "movie"
+          ? "movies"
+          : "tv series")}: `,
+        e
+      );
+      throw e;
+    }
+  }
 }
 
 module.exports = mediaAPI;
