@@ -106,6 +106,13 @@ class backendAPI {
     return result.movies || result.tvshows;
   }
 
+  // GET /:mediaType/trending/:period
+  static async getMediaTrending(mediaType, period) {
+    console.debug("mediaType: ", mediaType, "period: ", period);
+    let result = await this.request(`${mediaType}/trending/${period}`);
+    return result.movies || result.tvshows;
+  }
+
   // GET /:mediaType
   static async getMediaFindAll(mediaType) {
     console.debug("FindAll - mediaType: ", mediaType);
