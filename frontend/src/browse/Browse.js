@@ -5,6 +5,8 @@ const Browse = () => {
   return (
     <Segment>
       <Header as="h1" textAlign="center">Movie</Header>
+      <Header as="h3">Trending</Header>
+      <MediaList mediaType="movies" trending={true} />
       <Header as="h3">Popular</Header>
       <MediaList mediaType="movies" filterType="popular" />
       <Header as="h3">Now Playing</Header>
