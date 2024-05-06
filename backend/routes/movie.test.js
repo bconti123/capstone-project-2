@@ -144,3 +144,5 @@ describe("GET /movies/api/:filterType/:page?", () => {
   });
 });
 
+// GET /movies/trending/[period]
+

@@ -5,6 +5,8 @@ import MediaList from "../media/MediaList";
 const Movie = () => {
   return (
     <Segment>
+      {/* <Header as="h3" textAlign="center">Treading</Header>
+      <MediaList mediaType="trending/movies" filterType="day" /> */}
       <Header as="h3">Popular</Header>
       <MediaList mediaType="movies" filterType="popular" />
       <Header as="h3">Now Playing</Header>
