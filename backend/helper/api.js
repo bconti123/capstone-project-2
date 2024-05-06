@@ -39,9 +39,9 @@ class mediaAPI {
     }
   }
 
-  static async MediaTypeTrending(mediaType, Day) {
+  static async MediaTypeTrending(mediaType) {
     try {
-      return await this.APIrequest(`trending/${mediaType}/${Day}`);
+      return await this.APIrequest(`trending/${mediaType}/day?&api_key=${API_KEY}`);
     } catch (e) {
       console.error(
         `Error fetching now playing ${(mediaType === "movie"
