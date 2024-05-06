@@ -53,12 +53,12 @@ router.get("/list/:filterType/:page?", async (req, res, next) => {
   }
 });
 
-// GET /trending/:mediaType/:Day
-router.get("/trending/:mediaType/:Day", async (req, res, next) => {
+// GET /trending/:mediaType/:period
+router.get("/trending/:period", async (req, res, next) => {
   try {
     const movies = await mediaAPI.MediaTypeTrending(
       "movie",
-      req.params.Day
+      req.params.period
     );
     return res.status(200).json({ movies: movies.data });
   } catch (e) {
