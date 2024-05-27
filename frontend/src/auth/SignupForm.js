@@ -19,14 +19,17 @@ const SignupForm = ({ signup }) => {
     email: "",
   });
   const [formErrors, setFormErrors] = useState([]);
+  const [load, setLoad] = useState(false);
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoad(true);
     let result = await signup(formData);
     // console.log("Form submitted: ", formData);
     // console.log("Username type: ", typeof formData.username);
     if (result.success) {
+      setLoad(false);
       navigate("/");
     } else {
       setFormErrors(result.errors);
@@ -37,6 +40,8 @@ const SignupForm = ({ signup }) => {
   const handleChange = (evt, { name, value }) => {
     setFormData({ ...formData, [name]: value });
   };
+
+  
 
   return (
     <Grid textAlign="center" style={{ height: "75vh" }} verticalAlign="middle">
@@ -85,9 +90,10 @@ const SignupForm = ({ signup }) => {
               onChange={handleChange}
               placeholder="Email"
             />
-            <Button type="submit" primary fluid>
-              Sign Up
+            <Button type="submit" primary fluid loading={load}>
+              {load ? "Loading" : "Sign Up"}
             </Button>
+            
           </Segment>
         </Form>
         <Message>

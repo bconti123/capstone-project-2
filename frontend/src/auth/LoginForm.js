@@ -9,6 +9,7 @@ const LoginForm = ({ login }) => {
     password: "",
   });
   const [formErrors, setFormErrors] = useState([]);
+  const [load, setLoad] = useState(false);
 
   const handleChange = (evt, { name, value }) => {
     setFormData({ ...formData, [name]: value });
@@ -16,9 +17,11 @@ const LoginForm = ({ login }) => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
+    setLoad(true);
     let result = await login(formData);
     // console.log("Form submitted: ", formData);
     if (result.success) {
+      setLoad(false);
       navigate("/");
     } else {
       setFormErrors(result.errors);
@@ -49,8 +52,8 @@ const LoginForm = ({ login }) => {
               onChange={handleChange}
               autoComplete="current-password"
             />
-            <Button type="submit" primary fluid>
-              Login
+            <Button type="submit" primary fluid loading={load}>
+              {load ? "Loading..." : "Login"}
             </Button>
           </Form>
         </Segment>
