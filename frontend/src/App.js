@@ -79,11 +79,23 @@ function App() {
     }
   };
   
+  // handles site-wide demo login
+  const demo = async () => {
+    try {
+      let token = await backendAPI.login("demouser", "password" );
+      setToken(token);
+      return { success: true };
+    } catch (errors) {
+      console.error("login failed", errors);
+      return { success: false, errors };
+    }
+  }
+
   return (
     <BrowserRouter>
       <UserContext.Provider value={{ currentUser, setCurrentUser, infoLoaded, setInfoLoaded }}>
-        <NavigationApp logout={logout} />
-        <RouterApp signup={signup} login={login} />
+        <NavigationApp logout={logout} demo={demo} />
+        <RouterApp signup={signup} login={login} demo={demo} />
       </UserContext.Provider>
     </BrowserRouter>
   );

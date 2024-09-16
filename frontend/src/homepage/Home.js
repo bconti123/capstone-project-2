@@ -3,11 +3,12 @@ import { Button, Header, Segment, Grid, Message, Icon } from "semantic-ui-react"
 import { Link } from "react-router-dom";
 import Broswe from "../browse/Browse";
 import UserContext from "../auth/UserContext";
+import DemoLoginForm from "../auth/DemoLoginForm";
 
 // Create Dashboard
 // currentUser -> Dashboard
 // otherwise -> Home
-const Home = () => {
+const Home = ({demo}) => {
   const { currentUser } = useContext(UserContext);
   return (
     <>
@@ -32,6 +33,7 @@ const Home = () => {
                     Sign Up
                   </Button>
                 </Segment>
+                <DemoLoginForm demo={demo} />
               </Message>
             </Grid.Column>
           </Grid>

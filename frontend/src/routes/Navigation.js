@@ -1,9 +1,24 @@
-import React, { useContext } from "react";
-import { NavLink, Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import { Dropdown, Menu } from "semantic-ui-react";
 import UserContext from "../auth/UserContext";
-const NavigationApp = ({ logout }) => {
+const NavigationApp = ({ logout, demo }) => {
   const { currentUser } = useContext(UserContext);
+
+  const navigate = useNavigate();
+
+  const [formErrors, setFormErrors] = useState([]);
+
+  const handleSubmit = async (evt) => {
+      evt.preventDefault();
+      let result = await demo();
+      if (result.success) {
+          navigate("/");
+      } else {
+          setFormErrors(result.errors);
+          console.debug(formErrors);
+      }
+    }
 
   return (
     <Menu pointing secondary>
@@ -53,6 +68,9 @@ const NavigationApp = ({ logout }) => {
             </Menu.Item>
             <Menu.Item as={NavLink} to="/signup">
               Sign Up
+            </Menu.Item>
+            <Menu.Item onClick={handleSubmit}>
+              Demo Login Without Account
             </Menu.Item>
           </>
         )}
