@@ -24,6 +24,15 @@ Enjoy a visually rich and interactive experience with the curated movie and TV s
 2. Fill out the forms, then click the "Submit" button.
 3. You will be redirected to the homepage, where you can enjoy the movie and TV show slider.
 
+#### OR
+
+1. Click the "Login" button.
+2. Fill out the forms below:
+    - Username: sampleuser
+    - Password: password
+3. click the "Submit" button.
+4. You will be redirected to the homepage, where you can enjoy the movie and TV show slider.
+
 ![Streaming app](/image/streaming_app.png)
 
 
