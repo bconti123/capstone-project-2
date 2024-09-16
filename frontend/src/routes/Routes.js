@@ -6,6 +6,7 @@ import { Container } from "semantic-ui-react";
 import Home from "../homepage/Home";
 import LoginForm from "../auth/LoginForm";
 import SignupForm from "../auth/SignupForm";
+import DemoLoginForm from "../auth/DemoLoginForm";
 import PrivateRoute from "./PrivateRoute";
 import Movie from "../browse/Movie";
 import TVshow from "../browse/TVshow";
@@ -15,13 +16,13 @@ import PublicRoute from "./PublicRoute";
 import UserList from "../profile/UserList";
 import LoadingSpin from "../common/Loading";
 
-const RouterApp = ({ login, signup }) => {
+const RouterApp = ({ login, signup, demo }) => {
   const { infoLoaded } = useContext(UserContext);
   if (!infoLoaded) return <LoadingSpin />;
   return (
     <Container fluid>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home demo={demo} />} />
         <Route element={<PublicRoute />}>
           <Route exact path="/login" element={<LoginForm login={login} />} />
           <Route
