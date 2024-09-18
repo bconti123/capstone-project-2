@@ -34,6 +34,7 @@ const SignupForm = ({ signup }) => {
     } else {
       setFormErrors(result.errors);
       console.debug(formErrors);
+      setLoad(false);
     }
   };
 
@@ -46,6 +47,7 @@ const SignupForm = ({ signup }) => {
   return (
     <Grid textAlign="center" style={{ height: "75vh" }} verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>
+        <Message error list={formErrors} />
         <Header as="h2" textAlign="center">
           Register your account
           </Header> 
