@@ -33,7 +33,8 @@ const LoginForm = ({ login }) => {
   return (
     <Grid textAlign="center" style={{ height: "75vh" }} verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>
-        <Message error list={formErrors} />
+        {(formErrors.length > 0) && <Message error list={formErrors} />}
+        
         <Header as="h2" textAlign="center">
           Log in to your account
         </Header>
