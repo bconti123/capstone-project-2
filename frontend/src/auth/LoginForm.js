@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Button, Form, Grid, Segment, Header, Message } from "semantic-ui-react";
+import {
+  Button,
+  Form,
+  Grid,
+  Segment,
+  Header,
+  Message,
+} from "semantic-ui-react";
 
 const LoginForm = ({ login }) => {
   const navigate = useNavigate();
@@ -33,8 +40,8 @@ const LoginForm = ({ login }) => {
   return (
     <Grid textAlign="center" style={{ height: "75vh" }} verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>
-        {(formErrors.length > 0) && <Message error list={formErrors} />}
-        
+        {formErrors.length > 0 && <Message error list={formErrors} />}
+        {load && <Message>Please wait while the backend server starts up</Message>}
         <Header as="h2" textAlign="center">
           Log in to your account
         </Header>
@@ -63,7 +70,6 @@ const LoginForm = ({ login }) => {
         <Message>
           Are you new to this?
           <Link to="/signup"> Sign Up</Link>
-          
         </Message>
       </Grid.Column>
     </Grid>

@@ -21,7 +21,6 @@ const SignupForm = ({ signup }) => {
   const [formErrors, setFormErrors] = useState([]);
   const [load, setLoad] = useState(false);
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoad(true);
@@ -42,15 +41,14 @@ const SignupForm = ({ signup }) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  
-
   return (
     <Grid textAlign="center" style={{ height: "75vh" }} verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>
-        {(formErrors.length > 0) && <Message error list={formErrors} />}
+        {formErrors.length > 0 && <Message error list={formErrors} />}
+        {load && <Message>Please wait while the backend server starts up</Message>}
         <Header as="h2" textAlign="center">
           Register your account
-          </Header> 
+        </Header>
         <Form onSubmit={handleSubmit} size="large">
           <Segment stacked>
             <Form.Group widths={"equal"}>
@@ -95,11 +93,10 @@ const SignupForm = ({ signup }) => {
             <Button type="submit" primary fluid loading={load}>
               {load ? "Loading" : "Sign Up"}
             </Button>
-            
           </Segment>
         </Form>
         <Message>
-          Already have an account? 
+          Already have an account?
           <Link to="/login"> Log In</Link>
         </Message>
       </Grid.Column>
