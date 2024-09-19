@@ -4,7 +4,9 @@ import MediaList from "../media/MediaList";
 const Browse = () => {
   return (
     <Segment>
-      <Header as="h1" textAlign="center">Movie</Header>
+      <Header as="h1" textAlign="center">
+        Movie
+      </Header>
       <Header as="h3">Trending</Header>
       <MediaList mediaType="movies" trending={true} />
       <Header as="h3">Popular</Header>
@@ -15,7 +17,9 @@ const Browse = () => {
       <MediaList mediaType="movies" filterType="upcoming" />
       <Header as="h3">Top Rated</Header>
       <MediaList mediaType="movies" filterType="top_rated" />
-      <Header as="h1" textAlign="center">TV Show</Header>
+      <Header as="h1" textAlign="center">
+        TV Show
+      </Header>
       <Header as="h3">Popular</Header>
       <MediaList mediaType="tvshows" filterType="popular" />
       <Header as="h3">Airing Today</Header>
