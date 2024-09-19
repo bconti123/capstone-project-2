@@ -86,7 +86,7 @@ function App() {
       setToken(token);
       return { success: true };
     } catch (errors) {
-      console.error("login failed", errors);
+      console.error("demo failed", errors);
       return { success: false, errors };
     }
   }
