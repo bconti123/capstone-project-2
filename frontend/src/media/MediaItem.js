@@ -71,8 +71,8 @@ const MediaItem = ({ mediaType, media }) => {
                   bordered
                   onClick={(e) => {
                     e.preventDefault();
+                    openModal(item)
                   }}
-                  onDoubleClick={() => openModal(item)}
                   style={{
                     width: "200px",
                     height: "300px",
