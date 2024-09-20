@@ -6,7 +6,6 @@ import { Container } from "semantic-ui-react";
 import Home from "../homepage/Home";
 import LoginForm from "../auth/LoginForm";
 import SignupForm from "../auth/SignupForm";
-import DemoLoginForm from "../auth/DemoLoginForm";
 import PrivateRoute from "./PrivateRoute";
 import Movie from "../browse/Movie";
 import TVshow from "../browse/TVshow";
