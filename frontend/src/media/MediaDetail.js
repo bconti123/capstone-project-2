@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { createRef, useEffect, useState } from "react";
 import {
   Header,
   Modal,
@@ -6,7 +6,11 @@ import {
   Image,
   Container,
   Divider,
+  Button,
+  Sticky,
+  Rail,
 } from "semantic-ui-react";
+
 import AverageRating from "./helper/rating";
 import AddtoList from "./helper/AddtoList";
 import mediaAPI from "../helper/tmdb-api";
@@ -53,13 +57,23 @@ const MediaDetail = ({ mediaType, closeModal, open, selectedItem }) => {
     }
   }, [type, open, del, selectedItem]);
 
+  const contextRef = createRef();
+
   return (
     <Modal
       onClose={closeModal}
       open={open}
       style={{ width: "70%" }}
-      size="fullscreen"
+      size="large"
     >
+      <Rail position="right">
+        <Sticky context={contextRef}>
+          <Button
+            onClick={closeModal}
+            icon="close"
+          ></Button>
+        </Sticky>
+      </Rail>
       <Modal.Content style={{ padding: 0, overflow: "hidden" }}>
         {data && (
           <Item>
