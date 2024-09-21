@@ -1,6 +1,9 @@
 # db.js
 backend/db.js
 
+# snapshot
+_snapshots_
+
 # Logs
 logs
 *.log
