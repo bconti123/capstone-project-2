@@ -2,7 +2,7 @@
 backend/db.js
 
 # snapshot
-_snapshots_
+__snapshots__
 
 # Logs
 logs
