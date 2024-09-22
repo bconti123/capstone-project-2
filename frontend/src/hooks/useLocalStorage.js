@@ -15,7 +15,7 @@ import { useState, useEffect } from "react";
  *   const [myThing, setMyThing] = useLocalStorage("myThing")
  */
 
-function useLocalStorage(key, firstValue = null) {
+const useLocalStorage = (key, firstValue = null) => {
   const initialValue = localStorage.getItem(key) || firstValue;
 
   const [item, setItem] = useState(initialValue);
@@ -34,6 +34,6 @@ function useLocalStorage(key, firstValue = null) {
   );
 
   return [item, setItem];
-}
+};
 
 export default useLocalStorage;
