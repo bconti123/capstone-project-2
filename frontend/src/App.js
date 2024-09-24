@@ -1,5 +1,4 @@
 import "./App.css";
-import { BrowserRouter } from "react-router-dom";
 import NavigationApp from "./routes/Navigation";
 import RouterApp from "./routes/Routes";
 import { useState, useEffect } from "react";
@@ -78,26 +77,26 @@ function App() {
       return { success: false, errors };
     }
   };
-  
+
   // handles site-wide demo login
   const demo = async () => {
     try {
-      let token = await backendAPI.login("demouser", "password" );
+      let token = await backendAPI.login("demouser", "password");
       setToken(token);
       return { success: true };
     } catch (errors) {
       console.error("demo failed", errors);
       return { success: false, errors };
     }
-  }
+  };
 
   return (
-    <BrowserRouter>
-      <UserContext.Provider value={{ currentUser, setCurrentUser, infoLoaded, setInfoLoaded }}>
-        <NavigationApp logout={logout} demo={demo} />
-        <RouterApp signup={signup} login={login} demo={demo} />
-      </UserContext.Provider>
-    </BrowserRouter>
+    <UserContext.Provider
+      value={{ currentUser, setCurrentUser, infoLoaded, setInfoLoaded }}
+    >
+      <NavigationApp logout={logout} demo={demo} />
+      <RouterApp signup={signup} login={login} demo={demo} />
+    </UserContext.Provider>
   );
 }
 
