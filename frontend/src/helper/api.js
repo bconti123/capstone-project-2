@@ -23,7 +23,9 @@ class backendAPI {
       return (await axios({ url, method, data, params, headers })).data;
     } catch (err) {
       console.error("API Error: ", err.response.data.error);
+
       let message = err.response.data.error.message;
+
       throw Array.isArray(message) ? message : [message];
     }
   }
@@ -76,7 +78,11 @@ class backendAPI {
 
   // DELETE /users/:username/movies/:movie_id
   static async removeMovieList(username, id) {
-    let res = await this.request(`users/${username}/movies/${id}`, {}, "delete");
+    let res = await this.request(
+      `users/${username}/movies/${id}`,
+      {},
+      "delete"
+    );
     return res.deleted;
   }
 
