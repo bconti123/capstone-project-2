@@ -37,6 +37,11 @@ app.use("/users", userRoutes);
 app.use("/movies", movieRoutes);
 app.use("/tvshows", tvRoutes);
 
+// Server is running
+app.get("/", (req, res) => {
+  return res.status(200).json({ message: "Server is running" });
+})
+
 /** Handle 404 errors -- this matches everything */
 app.use((req, res, next) => {
   return next(new NotFoundError());
